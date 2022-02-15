@@ -1,0 +1,13 @@
+.index{
+    .block{
+        border: 1px solid lightgrey;
+        padding: 2rem;
+        
+        &.about{
+            img{
+                max-height: 200px;
+                width: 100%;
+            }
+        }
+    }
+}
