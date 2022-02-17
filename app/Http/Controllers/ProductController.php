@@ -19,14 +19,14 @@ class ProductController extends Controller
                 'name' => "hairline care",
                 'description' => "iShoba hairline care treatment is one of our popular products. It is made from argan oil and hemp seed oil to provide hair with the necessary minerals for hydration and elasticity. It is popular mostly for its apparent effect on the hairline, i.e. fast growth and glow of hairline. The contrast effect of iShoba hairline care (between the skin and hair) enhances the glow and outlook of a woman.",
                 'price' => "130",
-                "imageUrl" => "/images/moisturisinghairspray.png",
+                "imageUrl" => "/images/hairlineoil.png",
             ],
             [
                 'id' => "moisturising-hair-spray",
                 'name' => "moisturising hair spray",
                 'description' => "Our hair moisturiser performs well on natural hair; it contains the much-needed nutrients for hair care. iShoba hair moisturiser restores the softness and glow of hair. It works fast and efficiently. It is a perfect treatment for itchy scalp and braids. You will never go wrong with our iShoba hair moisturiser.",
                 'price' => "110",
-                "imageUrl" => "/images/hairlineoil.png",
+                "imageUrl" => "/images/moisturisinghairspray.png",
             ],
             [
                 'id' => "scalp-and-hair-oil",
