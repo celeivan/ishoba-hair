@@ -6,34 +6,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Ishoba Hair </title>
-
-    <!-- Fonts -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-        integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" href="/scss/app.css"/>
+    <link rel="stylesheet" href="/scss/app.css" />
 </head>
 
 <body class="bg-light d-flex flex-column min-vh-100">
-    <div class="navbar bg-warning">
+    <div class="navbar bg-warning fixed-top">
         <div class="container">
             <nav class="navbar navbar-expand-lg w-100">
                 <div class="container-fluid">
-                    <a class="navbar-brand text-uppercase" href="{{ route('public.home')}}">Ishoba Hair</a>
+                    <a class="navbar-brand text-uppercase d-flex align-items-center" href="{{ route('public.home')}}">
+                        <img src="/images/ishobalogo.png" alt="" height="40px" class="d-inline-block align-text-top">
+                        <span>Ishoba Hair</span>
+                    </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
                         aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
+                        <i class="fas fa-bars fa-lg"></i>
                     </button>
                     <div class="collapse navbar-collapse flex-column" id="navbarNavAltMarkup">
                         <div class="navbar-nav align-self-end">
-                            <a class="nav-link text-uppercase" aria-current="page" href="#">About</a>
-                            <a class="nav-link text-uppercase" href="#">Shop Now</a>
+                            <a class="nav-link text-uppercase {{\URL::current() === \URL::route('public.home') ? 'active':''}}"
+                                href="{{ route('public.home') }}">About</a>
+                            <a class="nav-link text-uppercase {{\URL::current() === \URL::route('public.shop') ? 'active':''}}"
+                                href="{{ route('public.shop')}}">Shop Now</a>
                             <a class="nav-link text-uppercase" href="#">Reviews</a>
-                            <a class="nav-link text-uppercase" href="{{route('public.contact')}}">Contact Us</a>
-                            <a class="nav-link text-uppercase" href=#><i class="fas fa-shopping-cart"></i></a>
+                            <a class="nav-link text-uppercase {{\URL::current() === \URL::route('public.contact') ? 'active':''}}"
+                                href="{{route('public.contact')}}">Contact Us</a>
+                            <a class="nav-link text-uppercase text-primary" href=#><i
+                                    class="fas fa-shopping-cart"></i></a>
                         </div>
                     </div>
                 </div>
@@ -41,16 +41,66 @@
         </div>
     </div>
 
-    <div class="container flex-grow-1">
+    <div class="container content flex-grow-1">
         @yield('content')
     </div>
 
-    <div class="footer bg-warning">
-        <div class="container d-flex">
-            <div class="col-md-3">Footer Col</div>
-            <div class="col-md-3">Footer Col</div>
-            <div class="col-md-3">Footer Col</div>
-            <div class="col-md-3">Footer Col</div>
+    <div class="footer pt-4">
+        <div class="container">
+            <div class="d-flex flex-wrap justify-content-between">
+                <div class="logo">
+                    <img src="/images/ishobalogo.png" class="img-responsive img-fluid" alt="iShoba Hair logo" />
+                </div>
+                <div class="contacts d-none d-md-block">
+                    <p>
+                        <i class="fas fa-phone"></i> <a
+                            href="tel:&#48;&#55;&#57;&#32;&#53;&#53;&#51;&#32;&#48;&#48;&#56;&#48;" target="_blank">
+                            &#48;&#55;&#57;&#32;&#53;&#53;&#51;&#32;&#48;&#48;&#56;&#48</a>
+                        <br />
+                        <i class="fas fa-at"></i> <a
+                            href="mailto:&#105;&#110;&#102;&#111;&#64;&#115;&#116;&#114;&#101;&#115;&#115;&#108;&#101;&#115;&#115;&#103;&#114;&#111;&#117;&#112;&#46;&#99;&#111;&#46;&#122;&#97;">&#105;&#110;&#102;&#111;&#64;&#115;&#116;&#114;&#101;&#115;&#115;&#108;&#101;&#115;&#115;&#103;&#114;&#111;&#117;&#112;&#46;&#99;&#111;&#46;&#122;&#97;</a>
+                        <br />
+                        <i class="fas fa-map-marker-alt"></i> <a href="">Shop 2 Sangro House,<br /> <i
+                                class="fas fa-map-marker-alt hideIcon"></i> 417 Anton Lembede Street (Smith
+                            Street),<br />
+                            <i class="fas fa-map-marker-alt hideIcon"></i> Durban (CBD) 4000</a>
+                    </p>
+                </div>
+                <div class="links">
+                    <ol class="list-unstyled">
+                        <li><a href="">About</a></li>
+                        <li><a href="">Shop Now</a></li>
+                        <li><a href="">Reviews</a></li>
+                        <li><a href="">Contact Us</a></li>
+                    </ol>
+                    <div class="socials mt-2">
+                        <a target="_blank" href=""><i class="fab fa-2x fa-whatsapp"></i></a>
+                        <a target="_blank" href=""><i class="fab fa-2x fa-facebook"></i></a>
+                        <a target="_blank" href=""><i class="fab fa-2x fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="contacts mt-4 d-block d-md-none">
+                    <p>
+                        <i class="fas fa-phone"></i> <a
+                            href="tel:&#48;&#55;&#57;&#32;&#53;&#53;&#51;&#32;&#48;&#48;&#56;&#48;" target="_blank">
+                            &#48;&#55;&#57;&#32;&#53;&#53;&#51;&#32;&#48;&#48;&#56;&#48</a>
+                        <br />
+                        <i class="fas fa-at"></i> <a
+                            href="mailto:&#105;&#110;&#102;&#111;&#64;&#115;&#116;&#114;&#101;&#115;&#115;&#108;&#101;&#115;&#115;&#103;&#114;&#111;&#117;&#112;&#46;&#99;&#111;&#46;&#122;&#97;">&#105;&#110;&#102;&#111;&#64;&#115;&#116;&#114;&#101;&#115;&#115;&#108;&#101;&#115;&#115;&#103;&#114;&#111;&#117;&#112;&#46;&#99;&#111;&#46;&#122;&#97;</a>
+                        <br />
+                        <i class="fas fa-map-marker-alt"></i> <a href="">Shop 2 Sangro House,<br /> <i
+                                class="fas fa-map-marker-alt hideIcon"></i> 417 Anton Lembede Street (Smith
+                            Street),<br />
+                            <i class="fas fa-map-marker-alt hideIcon"></i> Durban (CBD) 4000</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <p class="text-center">
+                &copy; {{date('Y')}} iShoba Hair<br />
+                Design by <a href="#">The Excellence Mark Consult</a>
+            </p>
         </div>
     </div>
 
