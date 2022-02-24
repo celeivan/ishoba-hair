@@ -18,7 +18,8 @@
                 </p>
                 <div class="actions d-flex justify-content-center align-content-center">
                     <span class="m-0 p-0 price">R {{number_format($product['price'], 2)}}</span>
-                    <button class="btn btn-warning text-uppercase mx-4 rounded fw-bold">Add to Cart</button>
+                    <button class="btn btn-warning addToCart text-uppercase mx-4 rounded fw-bold"
+                        data-productId="{{$product['id']}}">Add to Cart</button>
                 </div>
             </div>
         </div>
@@ -26,4 +27,46 @@
     @endforeach
 </div>
 
+@endsection
+
+@section('scripts')
+<script type="">
+    $(document).ready(function(){
+        $('.addToCart').click(async function(){
+            let productId = $(this).attr('data-productId');
+
+            const rawResponse = await fetch(`/api/add-to-cart`, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json', 
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                },
+                body: JSON.stringify({productId: productId}),
+            });
+
+            const content = await rawResponse.json();
+            let {error, message} = content
+            if(error == null){
+                Swal.fire({
+                    icon: "success",
+                    title: message,
+                    toast: true,
+                    showConfirmButton: false,
+                    position: "top-right",
+                    timer: 3000,
+                })
+            }else{
+                Swal.fire({
+                    icon: "error",
+                    title: message,
+                    toast: true,
+                    showConfirmButton: false,
+                    position: "top-right",
+                    timer: 3000,
+                })
+            }
+        })
+    });
+</script>
 @endsection

@@ -37,7 +37,10 @@ $activeLinkColor: #ff040b;
 .index{
     .block{
         border: 1px solid $darkgrey;
-        padding: 2rem;
+        
+        &:not(.about){
+            padding: 2rem;
+        }
         
         &.about{
             img{
@@ -47,6 +50,10 @@ $activeLinkColor: #ff040b;
 
             a{
                 text-decoration: none;
+            }
+
+            .info{
+                padding: 2rem 0 2rem 2rem;
             }
         }
 

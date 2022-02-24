@@ -11021,6 +11021,8 @@ textarea.form-control-lg {
 
 .index .block {
   border: 1px solid #999999;
+}
+.index .block:not(.about) {
   padding: 2rem;
 }
 .index .block.about img {
@@ -11028,6 +11030,9 @@ textarea.form-control-lg {
 }
 .index .block.about a {
   text-decoration: none;
+}
+.index .block.about .info {
+  padding: 2rem 0 2rem 2rem;
 }
 .index .block .productCards img {
   max-width: 100%;

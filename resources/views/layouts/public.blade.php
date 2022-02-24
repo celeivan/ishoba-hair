@@ -4,6 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Ishoba Hair </title>
     <link rel="stylesheet" href="/scss/app.css" />
@@ -29,10 +31,10 @@
                                 href="{{ route('public.home') }}">About</a>
                             <a class="nav-link text-uppercase {{\URL::current() === \URL::route('public.shop') ? 'active':''}}"
                                 href="{{ route('public.shop')}}">Shop Now</a>
-                            <a class="nav-link text-uppercase" href="#">Reviews</a>
+                            {{-- <a class="nav-link text-uppercase" href="#">Reviews</a> --}}
                             <a class="nav-link text-uppercase {{\URL::current() === \URL::route('public.contact') ? 'active':''}}"
                                 href="{{route('public.contact')}}">Contact Us</a>
-                            <a class="nav-link text-uppercase text-primary" href=#><i
+                            <a class="nav-link text-uppercase text-primary" href="{{ route('public.shopping-cart')}}"><i
                                     class="fas fa-shopping-cart"></i></a>
                         </div>
                     </div>
@@ -104,9 +106,13 @@
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
+    @yield('scripts')
 </body>
 
 </html>

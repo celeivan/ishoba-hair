@@ -4,7 +4,7 @@
 <div class="index">
     <div class="block bg-white about mt-4">        
         <div class="row">
-            <div class="col-auto text-center">
+            <div class="col-md-8 info text-center">
                 <h4 class="fw-bold">About iShoba Hair</h4>
                 <p>iShoba Hair is a range of locally (South African) made natural hair care products. The brand came
                     into existence in 2021 as an extension of Stressless Health and Beauty products.
