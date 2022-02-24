@@ -3,7 +3,7 @@
     <div class="col">
         <div class="card border-0 h-100">
             <div class="flex-grow-1 d-flex my-0 mx-auto align-items-end"><img src="{{$product['imageUrl']}}" alt="Card image cap"></div>
-            <a class="text-center" href="#">Read More</a>
+            <a class="text-center" href="{{ route('public.shop') }}">Read More</a>
         </div>
     </div>
     @endforeach

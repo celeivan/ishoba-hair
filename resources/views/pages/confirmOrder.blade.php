@@ -66,7 +66,7 @@
         @endforeach
     </form>
     
-    <button type="button" onclick="$('#pf-form').trigger('submit')" class="btn mx-2 btn-primary">Pay Online Now</button>
+    {{-- <button type="button" onclick="$('#pf-form').trigger('submit')" class="btn mx-2 btn-primary">Pay Online Now</button> --}}
     <button type="button" class="btn mx-2 btn-warning">Pay Via EFT</button>
     <button type="button" class="btn mx-2 btn-success">I have made the payment</button>
 </div>
