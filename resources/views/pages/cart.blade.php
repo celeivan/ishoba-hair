@@ -1,7 +1,7 @@
 @extends('layouts.public')
 
 @section('content')
-<div class="cart">
+<div class="cart bg-white p-4">
     <h2 class="text-center">Shopping Cart</h2>
     <hr />
 
@@ -82,11 +82,11 @@
     @if(\Cart::getContent()->count() > 0)
     <div class="terms">
         <p>By Checking out this cart and proceeding to the payment gateway, you confirm that you've read and understood
-            our <a href="">Terms and Conditions</a> as well as the shipping arrangements.</p>
+            our <a href="{{route('public.terms-and-conditions')}}">Terms and Conditions</a> as well as the shipping arrangements.</p>
 
 
         <div class="d-flex justify-content-around">
-            <a href="{{ route('public.clear-shopping-cart')}}" class="btn btn-outline-warning text-black">Clear Cart</a>
+            <a href="{{ route('public.clear-shopping-cart')}}" class="btn btn-outline-light text-black">Clear Cart</a>
             <a href="{{ route('public.checkout')}}" class="btn btn-success {{ !$shippingMethod ? 'disabled': ''}}">Confirm Order</a>
             {{-- <a href="" class="btn btn-info">Download ProForma Invoice</a> --}}
         </div>
@@ -95,7 +95,7 @@
     <div class="steps mt-4 d-flex justify-content-center align-items-center">
         <button class="btn rounded btn-success">Confirm Order</button>
         <i class="fas fa-chevron-right text-success mx-2 fa-lg"></i>
-        <button class="btn rounded btn-primary">Delivery Information</button>
+        <button class="btn rounded btn-primary">{{ $shippingMethod === 'courier' ? 'Delivery ': 'Client' }} Information</button>
         <i class="fas fa-chevron-right text-info mx-2 fa-lg"></i>
         <button class="btn rounded btn-primary">Checkout</button>
         <i class="fas fa-chevron-right text-info mx-2 fa-lg"></i>

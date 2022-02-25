@@ -28,4 +28,7 @@ Route::get('/clear-shopping-cart', [CartController::class, 'clear'])->name("publ
 
 Route::post('/order', [OrderController::class, 'create'])->name('public.order-create');
 Route::get('/order/{order:order_reference}', [OrderController::class, 'confirmOrder'])->name('public.confirm-order');
+Route::get('/terms-and-conditions', function(){
+    return view('pages.terms');
+})->name('public.terms-and-conditions');
 // Route::get('/order/{order:order_reference}', [OrderController::class, 'confirmOrder'])->name('public.confirm-order');

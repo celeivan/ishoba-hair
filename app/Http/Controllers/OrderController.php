@@ -23,10 +23,10 @@ class OrderController extends Controller
 
         // Add validators to ensure no other customer has similar number or email
         // Check if radio for new customer is selected through JS
-        if ($request->has('firstNames')) {
-            //create customer info
-            //create order and associate with customer
-            //generate unique order reference system
+        
+        $customer = Customer::where('emailAddress', $request->emailAddress)->first();
+        if (!$customer) {
+            //TODO: generate unique order reference system
 
             $customer = Customer::create($request->only(
                 'firstNames',
@@ -35,8 +35,6 @@ class OrderController extends Controller
                 'contactNo',
                 'distributorCode',
             ));
-        } else {
-            $customer = Customer::findOrFail($request->customer_id);
         }
 
         if ($customer) {

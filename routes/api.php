@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('api.addToCart');
 Route::post('/set-shipping-method/{shippingMethod}', [CartController::class, 'setShippingMethod'])->name('api.setShippingMethod');
+Route::post('/client-check', [CustomerController::class, 'clientCheck'])->name('api.clientCheck');

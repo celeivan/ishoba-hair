@@ -5,7 +5,7 @@
     <h1>Contact Us</h1>
 
     <hr/>
-    <div class="w-100 d-flex justify-content-between contactCards">
+    <div class="w-100 bg-light d-flex justify-content-between contactCards">
         <div class="call">
             <h6><i class="fas fa-phone"></i> Call</h6>
             <a
@@ -14,7 +14,7 @@
         <div class="whatsapp">
             <h6><i class="fab fa-whatsapp"></i> WhatsApp </h6>
             <a
-                href="tel:&#48;&#55;&#57;&#32;&#53;&#53;&#51;&#32;&#48;&#48;&#56;&#48;">&#48;&#55;&#57;&#32;&#53;&#53;&#51;&#32;&#48;&#48;&#56;&#48;</a>
+                href="https://wa.me/&#50;&#55;&#55;&#57;&#53;&#51;&#51;&#48;&#48;&#56;&#48;">&#48;&#55;&#57;&#32;&#53;&#53;&#51;&#32;&#48;&#48;&#56;&#48;</a>
         </div>
         <div class="email">
             <h6><i class="fas fa-at"></i> Email </h6>
@@ -59,7 +59,7 @@
                     <label for="floatingTextarea">Message</label>
                 </div>
                 <div class="col-12 actions">
-                    <button type="submit" class="btn btn-warning submit">Send</button>
+                    <button type="submit" class="btn btn-light submit">Send</button>
                 </div>
             </form>
         </div>

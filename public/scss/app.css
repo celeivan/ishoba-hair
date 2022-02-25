@@ -11009,10 +11009,10 @@ textarea.form-control-lg {
   font-weight: bold;
 }
 .navbar a.active {
-  color: #ff040b;
+  color: #ecd914;
 }
 .navbar a:hover {
-  color: rgba(255, 4, 11, 0.5);
+  color: rgba(236, 217, 20, 0.5);
 }
 
 .content {
@@ -11052,7 +11052,7 @@ textarea.form-control-lg {
   padding-right: 5px;
 }
 .index .faq .accordion-button:not(.collapsed) {
-  color: #ff040b;
+  color: #ecd914;
   background-color: rgba(236, 217, 20, 0.2);
 }
 .index .faq .accordion-body span:first-child {
@@ -11094,11 +11094,11 @@ textarea.form-control-lg {
   font-weight: bolder;
 }
 .contact .contactCards {
-  margin: 1rem 0;
-  margin-bottom: 3rem;
+  padding: 1rem 0;
+  margin-bottom: 1rem;
 }
 .contact .contactCards div {
-  border: 1px solid #efefef;
+  border: 1px solid white;
   flex-grow: 1;
   padding: 0.5rem;
   text-align: center;
@@ -11123,8 +11123,8 @@ textarea.form-control-lg {
 }
 
 .footer {
-  border-top: 2px solid #999999;
   margin-top: 3rem;
+  font-size: 12px;
   background-color: #d8d8d8;
 }
 .footer .logo img {
@@ -11137,8 +11137,18 @@ textarea.form-control-lg {
   text-decoration: none;
 }
 .footer .contacts i.hideIcon {
-  color: #d8d8d8;
+  color: lightgrey;
 }
 .footer .links a {
   text-decoration: none;
+}
+
+.terms {
+  text-align: justify;
+  font-size: 12px;
+}
+.terms h5, .terms .h5 {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  font-weight: bold;
 }

@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="/scss/app.css" />
 </head>
 
-<body class="bg-light d-flex flex-column min-vh-100">
-    <div class="navbar bg-warning fixed-top">
+<body class="bg-warning d-flex flex-column min-vh-100">
+    <div class="navbar bg-light fixed-top">
         <div class="container">
             <nav class="navbar navbar-expand-lg w-100">
                 <div class="container-fluid">
@@ -70,15 +70,15 @@
                 </div>
                 <div class="links">
                     <ol class="list-unstyled">
-                        <li><a href="">About</a></li>
-                        <li><a href="">Shop Now</a></li>
-                        <li><a href="">Reviews</a></li>
-                        <li><a href="">Contact Us</a></li>
+                        <li><a href="{{ route('public.home') }}">About</a></li>
+                        <li><a href="{{ route('public.shop') }}">Shop Now</a></li>
+                        {{-- <li><a href="{{ route('public.') }}">Reviews</a></li> --}}
+                        <li><a href="{{ route('public.contact') }}">Contact Us</a></li>
                     </ol>
                     <div class="socials mt-2">
-                        <a target="_blank" href=""><i class="fab fa-2x fa-whatsapp"></i></a>
-                        <a target="_blank" href=""><i class="fab fa-2x fa-facebook"></i></a>
-                        <a target="_blank" href=""><i class="fab fa-2x fa-instagram"></i></a>
+                        <a target="_blank" href="https://wa.me/&#50;&#55;&#55;&#57;&#53;&#51;&#51;&#48;&#48;&#56;&#48;" target="_blank"><i class="fab fa-2x fa-whatsapp"></i></a>
+                        <a target="_blank" href="https://www.facebook.com/ishobahair" target="_blank"><i class="fab fa-2x fa-facebook"></i></a>
+                        <a target="_blank" href="https://www.instagram.com/ishobahair/"><i class="fab fa-2x fa-instagram"></i></a>
                     </div>
                 </div>
                 <div class="contacts mt-4 d-block d-md-none">
@@ -90,8 +90,9 @@
                         <i class="fas fa-at"></i> <a
                             href="mailto:&#105;&#110;&#102;&#111;&#64;&#115;&#116;&#114;&#101;&#115;&#115;&#108;&#101;&#115;&#115;&#103;&#114;&#111;&#117;&#112;&#46;&#99;&#111;&#46;&#122;&#97;">&#105;&#110;&#102;&#111;&#64;&#115;&#116;&#114;&#101;&#115;&#115;&#108;&#101;&#115;&#115;&#103;&#114;&#111;&#117;&#112;&#46;&#99;&#111;&#46;&#122;&#97;</a>
                         <br />
-                        <i class="fas fa-map-marker-alt"></i> <a href="">Shop 2 Sangro House,<br /> <i
-                                class="fas fa-map-marker-alt hideIcon"></i> 417 Anton Lembede Street (Smith
+                        <i class="fas fa-map-marker-alt"></i> <a href="https:////goo.gl/maps/xiV1nchFNK3mL5DF6"
+                            target="_blank">Shop 2 Sangro House,<br /> <i class="fas fa-map-marker-alt hideIcon"></i>
+                            417 Anton Lembede Street (Smith
                             Street),<br />
                             <i class="fas fa-map-marker-alt hideIcon"></i> Durban (CBD) 4000</a>
                     </p>

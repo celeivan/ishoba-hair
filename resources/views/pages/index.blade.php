@@ -16,9 +16,9 @@
                         hairline is growing back. and I am blown away with the results of the products</span>.
                 </p>
                 <p>
-                    Currently iShoba Hair offers four products: <a href="#">Shea Butter hair food</a>, <a
-                        href="#">Hairline Care Treatment</a>, <a href="#">Scalp
-                        and Hair Oil</a>, and <a href="#">Moisturising Hair Spray</a>, with more developments underway.
+                    Currently iShoba Hair offers four products: <a href="{{ route('public.shop')}}">Shea Butter hair food</a>, <a
+                        href="{{ route('public.shop')}}">Hairline Care Treatment</a>, <a href="{{ route('public.shop')}}">Scalp
+                        and Hair Oil</a>, and <a href="{{ route('public.shop')}}">Moisturising Hair Spray</a>, with more developments underway.
                 </p>
             </div>
             <div class="col">
