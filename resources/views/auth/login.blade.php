@@ -16,7 +16,7 @@
                 <label for="email" class="form-label">Email Address</label>
             </div>
             <div class="form-floating">
-                <input name="password" required type="text" class="form-control" placeholder="">
+                <input name="password" required type="password" class="form-control" placeholder="">
                 <label for="password" class="form-label">Password</label>
             </div>
             <div class="col-12 actions">
