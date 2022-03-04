@@ -1,6 +1,6 @@
 @extends('layouts.public')
 @section('content')
-<div class="checkout bg-light p-4">
+<div class="container checkout bg-light p-4">
     <h2 class="text-center">{{ $shippingMethod === 'courier' ? 'Delivery Info' : 'Client Info'}}</h2>
     <hr />
 

@@ -784,6 +784,9 @@ select {
 .w-6 {
   width: 1.5rem;
 }
+.w-80 {
+  width: 20rem;
+}
 .max-w-xl {
   max-width: 36rem;
 }
@@ -832,6 +835,9 @@ select {
 }
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+.flex-row {
+  flex-direction: row;
 }
 .flex-col {
   flex-direction: column;

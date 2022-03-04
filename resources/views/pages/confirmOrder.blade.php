@@ -1,7 +1,7 @@
 @extends('layouts.public')
 
 @section('content')
-<div class="confirmOrder bg-light p-4">
+<div class="container confirmOrder bg-light p-4">
     <h2 class="text-center">Order Status (<span
             class="text-secondary">ISH-</span><span>{{$order->order_reference}}</span>)</h2>
     <hr />
@@ -11,7 +11,9 @@
     <div class="status alert alert-info bordered">
         <h6>Status</h6>
         <hr/>
-        <p>Your order is awaiting payment. Next step will be shipping after we've received your payment.</p>
+        <p>
+            {{ $order->status }} - {{ $order->statusDescription}}
+        </p>
     </div>
 
     <h4 class="mt-4 text-uppercase">Banking Details</h4>

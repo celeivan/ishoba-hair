@@ -1,7 +1,7 @@
 @extends('layouts.public')
 
 @section('content')
-<div class="contact">
+<div class="container contact">
     <h1>Contact Us</h1>
 
     <hr/>

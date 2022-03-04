@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProductController;
@@ -31,4 +32,8 @@ Route::get('/order/{order:order_reference}', [OrderController::class, 'confirmOr
 Route::get('/terms-and-conditions', function(){
     return view('pages.terms');
 })->name('public.terms-and-conditions');
-// Route::get('/order/{order:order_reference}', [OrderController::class, 'confirmOrder'])->name('public.confirm-order');
+
+Route::get('/dashboard', [AdminController::class, 'home'])->middleware('auth')->name('admin.home');
+Route::get('/dashboard/order/{order:order_reference}', [AdminController::class, 'viewOrder'])->middleware('auth')->name('admin.view-order');
+
+include ('auth.php');

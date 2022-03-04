@@ -1,7 +1,7 @@
 @extends('layouts.public')
 
 @section('content')
-<div class="terms bg-light p-4">
+<div class="container terms bg-light p-4">
     <h4 class="text-center">Terms and Conditions</h4>
     <hr/>
 

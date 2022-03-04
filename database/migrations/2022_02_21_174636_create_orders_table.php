@@ -23,7 +23,7 @@ class CreateOrdersTable extends Migration
             $table->string('discountCode')->nullable();
             $table->string('distributorCode')->nullable();
             $table->enum('status', ['awaiting payment', 'payment received', 'shipped', 'delivered', 'cancelled'])->default('awaiting payment');
-            $table->longText('statusDescription')->nullable(); //Store cancellation reason
+            $table->longText('statusDescription')->default("Your order is awaiting payment. Next step will be shipping after we've received your payment.")->nullable(); //Store cancellation reason
             $table->longText('log')->nullable();
             $table->timestamps();
         });

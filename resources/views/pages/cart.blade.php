@@ -1,7 +1,7 @@
 @extends('layouts.public')
 
 @section('content')
-<div class="cart bg-white p-4">
+<div class="container cart bg-white p-4">
     <h2 class="text-center">Shopping Cart</h2>
     <hr />
 

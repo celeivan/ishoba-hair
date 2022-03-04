@@ -1,7 +1,7 @@
 @extends('layouts.public')
 
 @section('content')
-<div class="index">
+<div class="container index">
     <div class="block bg-white about mt-4">        
         <div class="row">
             <div class="col-md-8 info text-center">

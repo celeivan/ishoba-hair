@@ -27,6 +27,15 @@
                     </button>
                     <div class="collapse navbar-collapse flex-column" id="navbarNavAltMarkup">
                         <div class="navbar-nav align-self-end">
+                            @if(Auth::check() && Auth::user()->role == 'admin')
+                            <a class="nav-link text-uppercase {{\URL::current() === \URL::route('public.home') ? 'active':''}}"
+                                href="{{ route('admin.home') }}">Orders</a>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <a class="nav-link text-uppercase text-danger" onclick="event.preventDefault();
+                                this.closest('form').submit();">Logout</a>
+                            </form>
+                            @else
                             <a class="nav-link text-uppercase {{\URL::current() === \URL::route('public.home') ? 'active':''}}"
                                 href="{{ route('public.home') }}">About</a>
                             <a class="nav-link text-uppercase {{\URL::current() === \URL::route('public.shop') ? 'active':''}}"
@@ -36,6 +45,7 @@
                                 href="{{route('public.contact')}}">Contact Us</a>
                             <a class="nav-link text-uppercase text-primary" href="{{ route('public.shopping-cart')}}"><i
                                     class="fas fa-shopping-cart"></i></a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -43,11 +53,12 @@
         </div>
     </div>
 
-    <div class="container content flex-grow-1">
+    <div class="content flex-grow-1 d-flex">
         @yield('content')
     </div>
 
     <div class="footer pt-4">
+        @if(!Auth::check())
         <div class="container">
             <div class="d-flex flex-wrap justify-content-between">
                 <div class="logo">
@@ -76,9 +87,12 @@
                         <li><a href="{{ route('public.contact') }}">Contact Us</a></li>
                     </ol>
                     <div class="socials mt-2">
-                        <a target="_blank" href="https://wa.me/&#50;&#55;&#55;&#57;&#53;&#51;&#51;&#48;&#48;&#56;&#48;" target="_blank"><i class="fab fa-2x fa-whatsapp"></i></a>
-                        <a target="_blank" href="https://www.facebook.com/ishobahair" target="_blank"><i class="fab fa-2x fa-facebook"></i></a>
-                        <a target="_blank" href="https://www.instagram.com/ishobahair/"><i class="fab fa-2x fa-instagram"></i></a>
+                        <a target="_blank" href="https://wa.me/&#50;&#55;&#55;&#57;&#53;&#51;&#51;&#48;&#48;&#56;&#48;"
+                            target="_blank"><i class="fab fa-2x fa-whatsapp"></i></a>
+                        <a target="_blank" href="https://www.facebook.com/ishobahair" target="_blank"><i
+                                class="fab fa-2x fa-facebook"></i></a>
+                        <a target="_blank" href="https://www.instagram.com/ishobahair/"><i
+                                class="fab fa-2x fa-instagram"></i></a>
                     </div>
                 </div>
                 <div class="contacts mt-4 d-block d-md-none">
@@ -99,6 +113,7 @@
                 </div>
             </div>
         </div>
+        @endif
         <div class="container">
             <p class="text-center">
                 &copy; {{date('Y')}} iShoba Hair<br />

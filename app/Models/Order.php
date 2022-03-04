@@ -4,8 +4,8 @@ namespace App\Models;
 
 use App\Models\Customer;
 use App\Models\OrderItems;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
@@ -24,8 +24,14 @@ class Order extends Model
     {
         return $this->belongsTo(Customer::class);
     }
-    
-    public function items(){
+
+    public function items()
+    {
         return $this->hasMany(OrderItems::class);
+    }
+
+    public function getStatusAttribute($attribute)
+    {
+        return ucfirst($attribute);
     }
 }

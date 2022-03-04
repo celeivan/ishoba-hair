@@ -1,6 +1,6 @@
 @extends('layouts.public')
 @section('content')
-<div class="shop">
+<div class="container shop">
     @foreach($products as $product)
     <div class="block bg-white mt-4">
         <div class="header">
