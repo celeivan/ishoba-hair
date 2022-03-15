@@ -8,5 +8,5 @@ Contact form from - {{$data['name']}}, {{ $data['contactNo'] }}, {{ $data['email
 <p>Message: {{ $data['formMessage'] ?? '' }}</p>
 
 Thanks,<br>
-Ishoba Hair Website
+Ishoba Hair
 @endcomponent

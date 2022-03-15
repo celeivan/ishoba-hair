@@ -4,7 +4,7 @@
 <div class="container contact">
     <h1>Contact Us</h1>
 
-    <hr/>
+    <hr />
     <div class="w-100 bg-light d-flex justify-content-between contactCards">
         <div class="call">
             <h6><i class="fas fa-phone"></i> Call</h6>
@@ -32,34 +32,52 @@
     </div>
     {{-- Add Distributors details (would also highly assist) --}}
 
-    <hr/>
-    <p class="text-center mb-4"><i class="fas fa-map-marker-alt fa-lg"></i> We are located at <strong>Shop 2 Sangro House, 417 Anton Lembede Street (Smith Street), Durban 4000</strong></p>
+    <hr />
+    <p class="text-center mb-4"><i class="fas fa-map-marker-alt fa-lg"></i> We are located at <strong>Shop 2 Sangro
+            House, 417 Anton Lembede Street (Smith Street), Durban 4000</strong></p>
 
     <div class="row">
         <div class="col-md-6">
             <form action="{{ route('public.send-contact') }}" method="post" class="contact-form row g-3">
                 @csrf
                 <div class="col-md-6 form-floating">
-                    <input name="firstName" value="{{old('firstName')}}" required type="text" class="form-control" placeholder="">
+                    <input name="firstName" value="{{old('firstName')}}" required type="text" class="form-control"
+                        placeholder="">
                     <label for="firstName" class="form-label">First Name/s</label>
                 </div>
                 <div class="col-md-6 form-floating">
-                    <input name="lastName" value="{{old('lastName')}}" required type="text" class="form-control" placeholder="">
+                    <input name="lastName" value="{{old('lastName')}}" required type="text" class="form-control"
+                        placeholder="">
                     <label for="lastName" class="form-label">Last Name</label>
                 </div>
                 <div class="col-md-6 form-floating">
-                    <input name="email" value="{{old('email')}}" required type="email" class="form-control" placeholder="">
+                    <input name="email" value="{{old('email')}}" required type="email" class="form-control"
+                        placeholder="">
                     <label for="email" class="form-label">Email Address</label>
                 </div>
                 <div class="col-md-6 form-floating">
-                    <input name="contactNo" value="{{old('contactNo')}}" required type="text" class="form-control" placeholder="">
+                    <input name="contactNo" value="{{old('contactNo')}}" required type="text" class="form-control"
+                        placeholder="">
                     <label for="contactNo" class="form-label">Contact No</label>
                 </div>
                 <div class="form-floating">
-                    <textarea class="form-control" name="message" required placeholder="Leave a comment here" id="floatingTextarea">{{old('message')}}</textarea>
+                    <textarea class="form-control" name="message" required placeholder="Leave a comment here"
+                        id="floatingTextarea">{{old('message')}}</textarea>
                     <label for="floatingTextarea">Message</label>
                 </div>
-                <div class="col-12 actions">
+                <div class="col-12 actions align-items-center justify-content-between">
+                    <div class="form-group {{ $errors->has('g-recaptcha-response') ? ' has-error' : '' }}">
+                        {{-- <label class="control-label">Captcha</label> --}}
+                        <div class="pull-center">
+                            {!! NoCaptcha::renderJs() !!}
+                            {!! NoCaptcha::display() !!}
+                            @if ($errors->has('g-recaptcha-response'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
+                            </span>
+                            @endif
+                        </div>
+                    </div>
                     <button type="submit" class="btn btn-light submit">Send</button>
                 </div>
             </form>

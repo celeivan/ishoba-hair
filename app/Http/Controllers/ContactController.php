@@ -21,6 +21,7 @@ class ContactController extends Controller
             'email' => 'required|email:rfc,dns',
             'contactNo' => 'required',
             'message' => 'required|string',
+            'g-recaptcha-response' => 'required|captcha'
         ]);
 
         $data = [
