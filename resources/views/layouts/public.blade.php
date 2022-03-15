@@ -53,7 +53,26 @@
         </div>
     </div>
 
-    <div class="content flex-grow-1 d-flex">
+    <div class="content flex-grow-1 d-flex flex-column">
+        @if(session('success'))
+            <div class="container bg-white rounded py-2 session-message text-center">
+                <p class="alert alert-success rounded m-0">{{ session('success') }}</p>
+            </div>
+        @elseif(session('error'))
+        @endif
+
+        @if ($errors->any())
+            <div class="container bg-white rounded py-2 text-center">
+                <div class="alert m-0 alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        @endif
+
         @yield('content')
     </div>
 
@@ -71,7 +90,7 @@
                             &#48;&#55;&#57;&#32;&#53;&#53;&#51;&#32;&#48;&#48;&#56;&#48</a>
                         <br />
                         <i class="fas fa-at"></i> <a
-                            href="mailto:&#105;&#110;&#102;&#111;&#64;&#115;&#116;&#114;&#101;&#115;&#115;&#108;&#101;&#115;&#115;&#103;&#114;&#111;&#117;&#112;&#46;&#99;&#111;&#46;&#122;&#97;">&#105;&#110;&#102;&#111;&#64;&#115;&#116;&#114;&#101;&#115;&#115;&#108;&#101;&#115;&#115;&#103;&#114;&#111;&#117;&#112;&#46;&#99;&#111;&#46;&#122;&#97;</a>
+                            href="mailto:&#105;&#110;&#102;&#111;&#64;&#105;&#115;&#104;&#111;&#98;&#97;&#46;&#99;&#111;&#46;&#122;&#97;">&#105;&#110;&#102;&#111;&#64;&#105;&#115;&#104;&#111;&#98;&#97;&#46;&#99;&#111;&#46;&#122;&#97;</a>
                         <br />
                         <i class="fas fa-map-marker-alt"></i> <a href="">Shop 2 Sangro House,<br /> <i
                                 class="fas fa-map-marker-alt hideIcon"></i> 417 Anton Lembede Street (Smith
@@ -102,7 +121,7 @@
                             &#48;&#55;&#57;&#32;&#53;&#53;&#51;&#32;&#48;&#48;&#56;&#48</a>
                         <br />
                         <i class="fas fa-at"></i> <a
-                            href="mailto:&#105;&#110;&#102;&#111;&#64;&#115;&#116;&#114;&#101;&#115;&#115;&#108;&#101;&#115;&#115;&#103;&#114;&#111;&#117;&#112;&#46;&#99;&#111;&#46;&#122;&#97;">&#105;&#110;&#102;&#111;&#64;&#115;&#116;&#114;&#101;&#115;&#115;&#108;&#101;&#115;&#115;&#103;&#114;&#111;&#117;&#112;&#46;&#99;&#111;&#46;&#122;&#97;</a>
+                            href="mailto:&#105;&#110;&#102;&#111;&#64;&#105;&#115;&#104;&#111;&#98;&#97;&#46;&#99;&#111;&#46;&#122;&#97;">&#105;&#110;&#102;&#111;&#64;&#105;&#115;&#104;&#111;&#98;&#97;&#46;&#99;&#111;&#46;&#122;&#97;</a>
                         <br />
                         <i class="fas fa-map-marker-alt"></i> <a href="https:////goo.gl/maps/xiV1nchFNK3mL5DF6"
                             target="_blank">Shop 2 Sangro House,<br /> <i class="fas fa-map-marker-alt hideIcon"></i>

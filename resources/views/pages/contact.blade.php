@@ -19,7 +19,7 @@
         <div class="email">
             <h6><i class="fas fa-at"></i> Email </h6>
             <a
-                href="mailto:&#105;&#110;&#102;&#111;&#64;&#115;&#116;&#114;&#101;&#115;&#115;&#108;&#101;&#115;&#115;&#103;&#114;&#111;&#117;&#112;&#46;&#99;&#111;&#46;&#122;&#97;">&#105;&#110;&#102;&#111;&#64;&#115;&#116;&#114;&#101;&#115;&#115;&#108;&#101;&#115;&#115;&#103;&#114;&#111;&#117;&#112;&#46;&#99;&#111;&#46;&#122;&#97;</a>
+                href="mailto:&#105;&#110;&#102;&#111;&#64;&#105;&#115;&#104;&#111;&#98;&#97;&#46;&#99;&#111;&#46;&#122;&#97;">&#105;&#110;&#102;&#111;&#64;&#105;&#115;&#104;&#111;&#98;&#97;&#46;&#99;&#111;&#46;&#122;&#97;</a>
         </div>
         <div class="facebook">
             <h6><i class="fab fa-facebook"></i> Facebook</h6>
@@ -37,25 +37,26 @@
 
     <div class="row">
         <div class="col-md-6">
-            <form action="" class="contact-form row g-3">
+            <form action="{{ route('public.send-contact') }}" method="post" class="contact-form row g-3">
+                @csrf
                 <div class="col-md-6 form-floating">
-                    <input name="firstName" required type="text" class="form-control" placeholder="">
+                    <input name="firstName" value="{{old('firstName')}}" required type="text" class="form-control" placeholder="">
                     <label for="firstName" class="form-label">First Name/s</label>
                 </div>
                 <div class="col-md-6 form-floating">
-                    <input name="lastName" required type="text" class="form-control" placeholder="">
+                    <input name="lastName" value="{{old('lastName')}}" required type="text" class="form-control" placeholder="">
                     <label for="lastName" class="form-label">Last Name</label>
                 </div>
                 <div class="col-md-6 form-floating">
-                    <input name="email" required type="email" class="form-control" placeholder="">
+                    <input name="email" value="{{old('email')}}" required type="email" class="form-control" placeholder="">
                     <label for="email" class="form-label">Email Address</label>
                 </div>
                 <div class="col-md-6 form-floating">
-                    <input name="contactNo" required type="text" class="form-control" placeholder="">
+                    <input name="contactNo" value="{{old('contactNo')}}" required type="text" class="form-control" placeholder="">
                     <label for="contactNo" class="form-label">Contact No</label>
                 </div>
                 <div class="form-floating">
-                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                    <textarea class="form-control" name="message" required placeholder="Leave a comment here" id="floatingTextarea">{{old('message')}}</textarea>
                     <label for="floatingTextarea">Message</label>
                 </div>
                 <div class="col-12 actions">

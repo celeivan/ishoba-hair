@@ -22,6 +22,7 @@ Route::get('/', [ProductController::class, 'index'])->name("public.home");
 Route::get('/shop', [ProductController::class, 'shop'])->name("public.shop");
 
 Route::get('/contact-us', [ContactController::class, 'index'])->name("public.contact");
+Route::post('/contact-us', [ContactController::class, 'sendContact'])->name("public.send-contact");
 
 Route::get('/shopping-cart', [CartController::class, 'index'])->name("public.shopping-cart");
 Route::get('/checkout', [CartController::class, 'checkout'])->name('public.checkout');
