@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Customer;
 use App\Models\Order;
+use App\Models\Customer;
 use App\Models\OrderItems;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class OrderController extends Controller
 {
@@ -23,7 +24,7 @@ class OrderController extends Controller
 
         // Add validators to ensure no other customer has similar number or email
         // Check if radio for new customer is selected through JS
-        
+
         $customer = Customer::where('emailAddress', $request->emailAddress)->first();
         if (!$customer) {
             //TODO: generate unique order reference system
@@ -35,6 +36,10 @@ class OrderController extends Controller
                 'contactNo',
                 'distributorCode',
             ));
+
+            $customer->update([
+                'password' => Hash::make('Cust0m3rP'),
+            ]);
         }
 
         if ($customer) {
@@ -79,9 +84,9 @@ class OrderController extends Controller
         $merchant_key = 'df13dnlhjdck9';
         $passPhrase = "TicketInTES";
 
-        if($shippingMethod && $shippingMethod == 'courier'){
+        if ($shippingMethod && $shippingMethod == 'courier') {
             $cartTotal = $order->total + 100;
-        }else{
+        } else {
             $cartTotal = $order->total;
         }
 
@@ -97,7 +102,7 @@ class OrderController extends Controller
             'cell_number' => $order->customer->contactNo,
             'm_payment_id' => $order->order_reference,
             'amount' => number_format(sprintf('%.2f', $cartTotal), 2, '.', ''),
-            'item_name' => "IShoba Hair- ISH-".$order->order_reference,
+            'item_name' => "IShoba Hair- ISH-" . $order->order_reference,
             'item_description' => "IShoba Hair products order incl shipping",
         ];
 

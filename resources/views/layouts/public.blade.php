@@ -4,10 +4,41 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- CSRF Token -->
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Ishoba Hair </title>
+    <meta name="keywords" content="Natural Hair, African Hair, Afro, Afro Hair">
+    @php
+    $description = "iShoba Hair is a range of locally (South African) made natural hair care products. Made from organic ingredients ensuring that the end products are safe for your hair and can be trusted.";
+    @endphp
+    <meta name="description" content="{{$description}}">
+
+    <meta property="og:url" content="https://ishoba.co.za" />
+    <meta property="og:site_name" content="Ishoba Hair" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Ishoba Hair" />
+    <meta property="og:description" content="{{$description}}" />
+    <meta property="og:image" content="{{ asset('images/fb-image.png') }}" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="1200" />
+    <meta property="og:image:alt" content="iShoba Hair Logo" />
+    <meta property="fb:app_id" content="675894680352863" />
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/images/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/images/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/images/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/images/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/images/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+
+    <title>iShoba Hair </title>
     <link rel="stylesheet" href="/scss/app.css" />
 </head>
 
@@ -40,6 +71,8 @@
                                 href="{{ route('public.home') }}">About</a>
                             <a class="nav-link text-uppercase {{\URL::current() === \URL::route('public.shop') ? 'active':''}}"
                                 href="{{ route('public.shop')}}">Shop Now</a>
+                            <a class="nav-link text-uppercase {{\URL::current() === \URL::route('public.distributor') ? 'active':''}}"
+                                href="{{ route('public.distributor')}}">Distributors</a>
                             {{-- <a class="nav-link text-uppercase" href="#">Reviews</a> --}}
                             <a class="nav-link text-uppercase {{\URL::current() === \URL::route('public.contact') ? 'active':''}}"
                                 href="{{route('public.contact')}}">Contact Us</a>
@@ -55,22 +88,22 @@
 
     <div class="content flex-grow-1 d-flex flex-column">
         @if(session('success'))
-            <div class="container bg-white rounded py-2 session-message text-center">
-                <p class="alert alert-success rounded m-0">{{ session('success') }}</p>
-            </div>
+        <div class="container bg-white rounded py-2 session-message text-center">
+            <p class="alert alert-success rounded m-0">{{ session('success') }}</p>
+        </div>
         @elseif(session('error'))
         @endif
 
         @if ($errors->any())
-            <div class="container bg-white rounded py-2 text-center">
-                <div class="alert m-0 alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
+        <div class="container bg-white rounded py-2 text-center">
+            <div class="alert m-0 alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
             </div>
+        </div>
         @endif
 
         @yield('content')

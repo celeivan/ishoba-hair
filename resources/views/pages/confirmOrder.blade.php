@@ -84,10 +84,10 @@
         </dd>
     </dl>
 
-    {{-- <p>Please note that we do not process payments, we make use of a payment gateway, we will now redirect you to their
-        website so you can complete your payment.</p> --}}
+    <p>Please note that we do not process payments, we make use of a payment gateway, we will now redirect you to their
+        website so you can complete your payment.</p>
 
-    {{-- <form method="POST" id="pf-form"
+    <form method="POST" id="pf-form"
         action="https://{{ App::environment('local') ? 'sandbox.payfast.co.za' :'www.payfast.co.za' }}/eng/process">
 
         @foreach($pfData as $name=> $value)
@@ -97,8 +97,7 @@
 
     <button type="button" onclick="$('#pf-form').trigger('submit')" class="btn mx-2 btn-primary">Pay Online
         Now</button>
-    <button type="button" class="btn mx-2 btn-warning">Pay Via EFT</button>
-    <button type="button" class="btn mx-2 btn-success">I have made the payment</button> --}}
+    <a href="{{route('public.customer.auth')}}" class="btn mx-2 btn-success">Login to make changes</a>
 
 
 

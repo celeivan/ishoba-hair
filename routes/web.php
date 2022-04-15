@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,10 @@ use App\Http\Controllers\ProductController;
 
 Route::get('/', [ProductController::class, 'index'])->name("public.home");
 Route::get('/shop', [ProductController::class, 'shop'])->name("public.shop");
+Route::get('/distributor', [ProductController::class, 'distributor'])->name("public.distributor");
+Route::get('/customer-auth', [CustomerController::class, 'auth'])->name("public.customer.auth");
+Route::post('/customer-auth', [CustomerController::class, 'authCustomer'])->name("public.customer.authCustomer");
+Route::get('/customer-profile', [CustomerController::class, 'profile'])->name("secure.customer.customerProfile");
 
 Route::get('/contact-us', [ContactController::class, 'index'])->name("public.contact");
 Route::post('/contact-us', [ContactController::class, 'sendContact'])->name("public.send-contact");

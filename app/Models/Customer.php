@@ -2,22 +2,31 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Customer extends Model
+class Customer extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
+
+    protected $guard = "customer";
 
     protected $fillable = [
         'firstNames',
         'lastName',
         'emailAddress',
+        'password',
         'email_verified_at',
         'contactNo',
         'contact_no_verified_at',
         'distributorCode',
         'distributor_since',
+    ];
+
+    protected $hidden = [
+        'password'
     ];
 
     public function hiddenEmail()

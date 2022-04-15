@@ -1,10 +1,14 @@
 @extends('layouts.public')
 @section('content')
 <div class="container shop">
+    <p class="alert alert-info m-0">
+        Buy in bulks and get amazing discounts
+    </p>
     @foreach($products as $product)
+    @if(strtolower($product['name']) != 'combo')
     <div class="block bg-white mt-4">
         <div class="header">
-            <h2>{{ $product['name'] }}</h2>
+            <h2>10x{{ $product['name'] }}</h2>
             <hr />
         </div>
         <div class="product d-flex">
@@ -17,13 +21,14 @@
                     {{ $product['description'] }}
                 </p>
                 <div class="actions d-flex justify-content-center align-content-center">
-                    <span class="m-0 p-0 price">R {{number_format($product['price'], 2)}}</span>
+                    <span class="m-0 p-0 price">R {{number_format(($product['price']-20)*10, 2)}}</span>
                     <button class="btn btn-warning addToCart text-uppercase mx-4 rounded fw-bold"
                         data-productId="{{$product['id']}}">Add to Cart</button>
                 </div>
             </div>
         </div>
     </div>
+    @endif
     @endforeach
 </div>
 
@@ -44,7 +49,7 @@
                 },
                 body: JSON.stringify({
                     productId: productId,
-                    distributor: false,
+                    distributor: true,
                 }),
             });
 

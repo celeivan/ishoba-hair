@@ -19,43 +19,33 @@ class CartController extends Controller
         return view('pages.cart', ['shippingMethod' => $shippingMethod]);
     }
 
-    public function setShippingMethod(Request $request, $shippingMethod)
-    {
-        if (\Cart::getContent()->count() > 0) {
-            $request->session()->put('shippingMethod', $shippingMethod);
-
-            return response()->json([
-                'error' => null,
-                'message' => "Shipping method set to " . $shippingMethod,
-            ]);
-        } else {
-            $request->session()->forget('shippingMethod');
-            return response()->json([
-                'error' => "Empty cart",
-                'message' => "You can't set shipping method while cart is empty",
-            ]);
-        }
-    }
-
     public function addToCart(Request $request)
     {
         $productId = $request->productId;
-
         $product = Product::findOrFail($productId);
+        $distributor = $request->distributor;
+        $price = $product->price;
+        $qty = 1;
 
+        // if($distributor == true){
+        //     $qty = 10;
+        //     $price = $product->price - 20 * $qty;
+        // }
+        $message = "$qty ".ucfirst($product->name)." successfully added to cart";
+        
         if ($request->has('productId')) {
 
             \Cart::add([
                 'id' => $product->id,
                 'name' => $product->name,
-                'price' => $product->price,
+                'price' => $price,
                 'attributes' => ['unitPrice' => $product->price],
-                'quantity' => 1,
+                'quantity' => $qty,
             ]);
 
             return response()->json([
                 'error' => null,
-                'message' => ucfirst($product->name) . " added to cart",
+                'message' => $message,
                 'productId' => $request->productId,
                 "productName" => $product->name ?? null,
                 "cartTotal" => \Cart::getTotal(),
@@ -88,5 +78,23 @@ class CartController extends Controller
         \Cart::clear();
         $request->session()->forget('shippingMethod');
         return redirect()->back();
+    }
+
+    public function setShippingMethod(Request $request, $shippingMethod)
+    {
+        if (\Cart::getContent()->count() > 0) {
+            $request->session()->put('shippingMethod', $shippingMethod);
+
+            return response()->json([
+                'error' => null,
+                'message' => "Shipping method set to " . $shippingMethod,
+            ]);
+        } else {
+            $request->session()->forget('shippingMethod');
+            return response()->json([
+                'error' => "Empty cart",
+                'message' => "You can't set shipping method while cart is empty",
+            ]);
+        }
     }
 }

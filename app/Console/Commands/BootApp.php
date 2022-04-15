@@ -71,6 +71,12 @@ class BootApp extends Command
                 'price' => "120",
                 "imageUrl" => "/images/scaloil.png",
             ],
+            [
+                'name' => "combo",
+                'description' => "Buy this combo at a discounted rate, 1x Shea Butter, 1x Hairline Care, 1x Moisturising Hair Spray, 1x Scalp And Hair Oil.",
+                'price' => "450",
+                "imageUrl" => "/images/combo.png",
+            ],
         ];
 
         foreach ($products as $product) {

@@ -15,4 +15,8 @@ class ProductController extends Controller
     {
         return view('pages.shop', ['products' => Product::all()]);
     }
+
+    public function distributor(){
+        return view('pages.distributor', ['products' => Product::all()]);
+    }
 }
