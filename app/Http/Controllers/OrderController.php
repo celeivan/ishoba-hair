@@ -10,6 +10,13 @@ use Illuminate\Support\Facades\Hash;
 
 class OrderController extends Controller
 {
+
+
+    public function customerOrder(Order $order)
+    {
+        return view('pages.customer.order', ['order' => $order]);
+    }
+
     public function create(Request $request)
     {
         if (\Cart::getContent()->count() == 0) {
@@ -26,8 +33,8 @@ class OrderController extends Controller
         // Check if radio for new customer is selected through JS
 
         $customer = Customer::where('emailAddress', $request->emailAddress)->first();
+        //TODO: generate unique order reference system
         if (!$customer) {
-            //TODO: generate unique order reference system
 
             $customer = Customer::create($request->only(
                 'firstNames',
@@ -40,6 +47,8 @@ class OrderController extends Controller
             $customer->update([
                 'password' => Hash::make('Cust0m3rP'),
             ]);
+
+            //TODO: Dispatch an email with password and login url
         }
 
         if ($customer) {
@@ -85,7 +94,7 @@ class OrderController extends Controller
         $passPhrase = "TicketInTES";
 
         if ($shippingMethod && $shippingMethod == 'courier') {
-            $cartTotal = $order->total + 100;
+            $cartTotal = $order->total + Order::$shippingFee;
         } else {
             $cartTotal = $order->total;
         }

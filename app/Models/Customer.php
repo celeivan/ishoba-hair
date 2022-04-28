@@ -42,6 +42,10 @@ class Customer extends Authenticatable
         }
     }
 
+    public function orders(){
+        return $this->hasMany(Order::class);
+    }
+
     public function hiddenNumber()
     {
         return substr($this->contactNo, 0, 4) . "****" . substr($this->contactNo, strlen($this->contactNo) - 2, 2);

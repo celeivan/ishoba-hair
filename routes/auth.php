@@ -15,10 +15,10 @@ Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
                 ->name('register');
 
-    Route::get('login', [AuthenticatedSessionController::class, 'create'])
+    Route::get('ishoba-admin', [AuthenticatedSessionController::class, 'create'])
                 ->name('login');
 
-    Route::post('login', [AuthenticatedSessionController::class, 'store']);
+    Route::post('ishoba-admin', [AuthenticatedSessionController::class, 'store']);
     Route::post('customer-login', [CustomerController::class, 'authCustomer'])->name('customer-login');
 
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])

@@ -20,6 +20,8 @@ class Order extends Model
         'distributorCode',
     ];
 
+    public static $shippingFee = 100;
+
     public function customer()
     {
         return $this->belongsTo(Customer::class);

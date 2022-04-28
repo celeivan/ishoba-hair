@@ -8,7 +8,7 @@
     @if(strtolower($product['name']) != 'combo')
     <div class="block bg-white mt-4">
         <div class="header">
-            <h2>10x{{ $product['name'] }}</h2>
+            <h2>10 <span class="fs-6">x</span> {{ $product['name'] }}</h2>
             <hr />
         </div>
         <div class="product d-flex">
@@ -21,7 +21,7 @@
                     {{ $product['description'] }}
                 </p>
                 <div class="actions d-flex justify-content-center align-content-center">
-                    <span class="m-0 p-0 price">R {{number_format(($product['price']-20)*10, 2)}}</span>
+                    <span class="m-0 p-0 price">R {{number_format(($product['price']-15)*10, 2)}}</span>
                     <button class="btn btn-warning addToCart text-uppercase mx-4 rounded fw-bold"
                         data-productId="{{$product['id']}}">Add to Cart</button>
                 </div>
@@ -61,7 +61,7 @@
                     title: message,
                     toast: true,
                     showConfirmButton: false,
-                    position: "top-right",
+                    position: "top",
                     timer: 3000,
                 })
             }else{
@@ -70,7 +70,7 @@
                     title: message,
                     toast: true,
                     showConfirmButton: false,
-                    position: "top-right",
+                    position: "top",
                     timer: 3000,
                 })
             }

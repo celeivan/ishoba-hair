@@ -27,10 +27,19 @@ class CartController extends Controller
         $price = $product->price;
         $qty = 1;
 
-        // if($distributor == true){
-        //     $qty = 10;
-        //     $price = $product->price - 20 * $qty;
-        // }
+        $distributorCondition = new \Darryldecode\Cart\CartCondition([
+            'name' => 'Distributor Discount -R15',
+            'type' => 'discount',
+            'value' => '-15'
+        ]);
+
+        if($distributor == true){
+            $qty = 10;
+            $conditions = [$distributorCondition];
+        }else{
+            $conditions =[];
+        }
+
         $message = "$qty ".ucfirst($product->name)." successfully added to cart";
         
         if ($request->has('productId')) {
@@ -41,6 +50,7 @@ class CartController extends Controller
                 'price' => $price,
                 'attributes' => ['unitPrice' => $product->price],
                 'quantity' => $qty,
+                'conditions' => $conditions,
             ]);
 
             return response()->json([
@@ -50,6 +60,7 @@ class CartController extends Controller
                 "productName" => $product->name ?? null,
                 "cartTotal" => \Cart::getTotal(),
                 "cartItemsCount" => \Cart::getContent()->count(),
+                'cartItems' => \Cart::getContent(),
             ]);
         } else {
             return response()->json([

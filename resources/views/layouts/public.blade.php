@@ -73,9 +73,10 @@
                                 href="{{ route('public.shop')}}">Shop Now</a>
                             <a class="nav-link text-uppercase {{\URL::current() === \URL::route('public.distributor') ? 'active':''}}"
                                 href="{{ route('public.distributor')}}">Distributors</a>
-                            {{-- <a class="nav-link text-uppercase" href="#">Reviews</a> --}}
                             <a class="nav-link text-uppercase {{\URL::current() === \URL::route('public.contact') ? 'active':''}}"
                                 href="{{route('public.contact')}}">Contact Us</a>
+                            <a class="nav-link text-uppercase {{\URL::current() === \URL::route('public.customer.authCustomer') ? 'active':''}}"
+                                href="{{route('public.customer.authCustomer')}}">Login</a>
                             <a class="nav-link text-uppercase text-primary" href="{{ route('public.shopping-cart')}}"><i
                                     class="fas fa-shopping-cart"></i></a>
                             @endif

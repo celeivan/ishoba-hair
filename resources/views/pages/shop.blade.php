@@ -56,7 +56,7 @@
                     title: message,
                     toast: true,
                     showConfirmButton: false,
-                    position: "top-right",
+                    position: "top",
                     timer: 3000,
                 })
             }else{
@@ -65,7 +65,7 @@
                     title: message,
                     toast: true,
                     showConfirmButton: false,
-                    position: "top-right",
+                    position: "top",
                     timer: 3000,
                 })
             }

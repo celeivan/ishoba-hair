@@ -9,7 +9,10 @@
                 {{ $order->status }} : {{ $order->statusDescription}}
             </p>
         </div>
-        
+
+        @if(strtolower($order->status) === 'awaiting payment')
+            <a href="{{ route('public.confirm-order', $order->order_reference)}}">Pay Now</a>
+        @endif        
         <div class="row">
             <div class="btn-group" role="group" aria-label="Basic example">
                 <a href="#" class="btn btn-outline-primary">Awaiting Payment</a>
@@ -17,7 +20,6 @@
                 <a href="#" class="btn btn-outline-primary">Shipped</a>
                 <a href="#" class="btn btn-outline-primary">Delivered</a>
                 <a href="#" class="btn btn-outline-primary">Cancel</a>
-                {{-- <a href="#" class="btn btn-outline-primary">Edit</a> --}}
               </div>
         </div>
 
@@ -33,8 +35,6 @@
         <div class="row">
             <dl class="row col-md-6">
                 <h4 class="mt-4 text-uppercase fw-smaller">Customer Details</h4>
-                {{--
-                <hr class="col-md-6" /> --}}
                 <dt class="col-sm-3">First Name/s</dt>
                 <dd class="col-sm-9">{{ $order->customer->firstNames}}</dd>
 
@@ -50,8 +50,6 @@
 
             <dl class="row col-md-6">
                 <h4 class="mt-4 text-uppercase">Order Details</h4>
-                {{--
-                <hr class="col-md-6" /> --}}
                 <dt class="col-sm-3">Order Reference</dt>
                 <dd class="col-sm-9">ISH-{{ $order->order_reference }}</dd>
 

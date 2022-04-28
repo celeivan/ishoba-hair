@@ -25,6 +25,7 @@ Route::get('/distributor', [ProductController::class, 'distributor'])->name("pub
 Route::get('/customer-auth', [CustomerController::class, 'auth'])->name("public.customer.auth");
 Route::post('/customer-auth', [CustomerController::class, 'authCustomer'])->name("public.customer.authCustomer");
 Route::get('/customer-profile', [CustomerController::class, 'profile'])->name("secure.customer.customerProfile");
+Route::get('/customer-profile/order/{order:order_reference}', [OrderController::class, 'customerOrder'])->name("secure.customer.customerOrder");
 
 Route::get('/contact-us', [ContactController::class, 'index'])->name("public.contact");
 Route::post('/contact-us', [ContactController::class, 'sendContact'])->name("public.send-contact");
@@ -34,12 +35,11 @@ Route::get('/checkout', [CartController::class, 'checkout'])->name('public.check
 Route::get('/clear-shopping-cart', [CartController::class, 'clear'])->name("public.clear-shopping-cart");
 
 Route::post('/order', [OrderController::class, 'create'])->name('public.order-create');
-Route::get('/order/{order:order_reference}', [OrderController::class, 'confirmOrder'])->name('public.confirm-order');
+Route::get('/order/{order:order_reference}', [OrderController::class, 'confirmOrder'])->middleware(['auth','customer-auth'])->name('public.confirm-order');
 Route::get('/terms-and-conditions', function(){
     return view('pages.terms');
 })->name('public.terms-and-conditions');
 
 Route::get('/dashboard', [AdminController::class, 'home'])->middleware('auth')->name('admin.home');
 Route::get('/dashboard/order/{order:order_reference}', [AdminController::class, 'viewOrder'])->middleware('auth')->name('admin.view-order');
-
 include ('auth.php');

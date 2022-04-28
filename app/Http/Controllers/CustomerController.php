@@ -58,6 +58,7 @@ class CustomerController extends Controller
     {
         //check if user is auth and their password isn't the default one, if it is default force them to change it
         //If not default password then display customer dashboard with orders and option to update profile
-        return "Hello Customer";
+        $user = Auth::guard('customer')->user();
+        return view('pages.customer.dash', ['user' => $user]);
     }
 }

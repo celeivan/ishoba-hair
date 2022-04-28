@@ -2,18 +2,21 @@
 @section('content')
 <div class="container-fluid">
     <div class="bg-light p-4 mx-4">
-        <h2 class="text-uppercase">Orders</h2>
+        <h3 class="text-uppercase text-center">Welcome back, {{$user->firstNames}} {{ $user->lastName}}</h3>
         <hr />
-        <p>You can manage your orders here.</p>
 
-        <div class="btn-group filters d-flex justify-content-evenly" role="group" aria-label="Orders filters">
-            <a href="#" class="btn btn-primary">Pending</a>
-            <a href="#" class="btn btn-outline-primary">Paid</a>
-            <a href="#" class="btn btn-outline-primary">Shipped</a>
-            <a href="#" class="btn btn-outline-primary">Delivered</a>
-            <a href="#" class="btn btn-outline-primary">Cancelled</a>
+        <p>
+            This is your dashboard, you can do various things, such as updating your profile, managing your orders and
+            posting comments/questions about your order.
+        </p>
+
+        <div>
+            <a href="">Orders</a>
+            <a href="">Edit Profile</a>
+            <a href="">Communication</a>
         </div>
 
+        
         <table class="table table-responsive table-sm table-hover mt-4">
             <thead>
                 <tr>
@@ -21,16 +24,15 @@
                     <th>Order Ref</th>
                     <th>Total</th>
                     <th>Status</th>
-                    <th>Customer</th>
                     <th>Shipping Method</th>
                     <th>Item/s</th>
                 </tr>
             </thead>
             <tbody>
-                @forelse($orders as $order)
+                @forelse($user->orders as $order)
                 <tr>
                     <td>{{ $order->created_at->diffForHumans() }}</td>
-                    <td><a href="{{ route('admin.view-order', $order->order_reference) }}">
+                    <td><a href="{{ route('secure.customer.customerOrder', $order->order_reference) }}">
                             {{$order->order_reference}}</a></td>
 
                     <td>R {{ $order->shippingAddress === null ? number_format($order->total,2) :
@@ -39,7 +41,6 @@
                         <span>{{$order->status}}</span><br />
                         <span>{{$order->statusDescription}}</span>
                     </td>
-                    <td>{{ $order->customer->firstNames ?? '' }}</td>
                     <td class="">
                         <span>{{ $order->shippingAddress === null ? 'Collect' : 'Deliver' }}</span><br />
                         <span>{{ $order->shippingAddress}}</span>

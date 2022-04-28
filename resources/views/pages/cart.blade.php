@@ -34,7 +34,7 @@
                 <th scope="col">Product Name</th>
                 <th scope="col">Quantity</th>
                 <th scope="col">Unit Price</th>
-                <th scope="col">Total</th>
+                <th scope="col" class="text-end">Total</th>
             </tr>
         </thead>
         <tbody>
@@ -42,8 +42,8 @@
             <tr>
                 <td>{{ ucfirst($item->name) }}</td>
                 <td>{{ $item->quantity }}</td>
-                <td>R {{ number_format($item->attributes->unitPrice, 2)}}</td>
-                <td class="text-end">R {{ number_format(($item->attributes->unitPrice *$item->quantity) , 2) }}</td>
+                <td>R {{ number_format($item->getPriceWithConditions(), 2)}}</td>
+                <td class="text-end">R {{ number_format(($item->getPriceSumWithConditions()) , 2) }}</td>
             </tr>
             @empty
             <tr>
@@ -61,10 +61,12 @@
                 <th>Sub-Total</th>
                 <th class="text-end">R {{ number_format(\Cart::getSubTotal(), 2)}}</th>
             </tr>
+            @if(\Cart::getConditions('discount'))
+            @endif
             <tr>
                 <td colspan="2" class="border-0"></td>
                 <th>Shipping</th>
-                <th class="text-end">{{ $shippingMethod === 'courier' ? 'R 100.00':'R 0.00'}}</th>
+                <th class="text-end">{{ $shippingMethod === 'courier' ? 'R '.number_format(\App\Models\Order::$shippingFee,2):'R 0.00'}}</th>
             </tr>
             <tr>
                 <td colspan="2" class="border-0"></td>
