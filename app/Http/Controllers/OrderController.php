@@ -51,7 +51,7 @@ class OrderController extends Controller
             $this->validate($request, [
                 'firstNames' => 'required|string',
                 'lastName' => 'required|string',
-                'email' => 'required|unique:users,email:rfc,dns',
+                'email' => 'required|unique:users|email:rfc,dns',
                 'contactNo' => 'required|unique:users',
                 'password' => 'required|string|confirmed',
             ]);
