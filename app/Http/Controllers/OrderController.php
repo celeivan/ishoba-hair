@@ -95,6 +95,7 @@ class OrderController extends Controller
                     ];
 
                     Mail::to($customer->email)->send(new SendOrderNotification($data));
+                    Mail::to(env('MAIL_ORDER'))->send(new SendOrderNotification($data));
                 }
 
                 return redirect()->route('public.confirm-order', $order->order_reference);
