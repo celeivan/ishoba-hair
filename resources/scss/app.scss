@@ -237,3 +237,28 @@ $activeLinkColor: #ecd914;
         font-weight: bold;
     }
 }
+
+//Admin/Dash sections
+
+.comments{
+    .comment{
+        &.sent{
+            p{
+                text-align: right;
+            }
+        }
+        &.received{
+            p{
+                text-align: left;
+            }
+        }
+
+        &.system{
+            p{
+                text-align: center;
+                background-color: #cff4fc;
+                // border-radius: 10px;
+            }
+        }
+    }
+}

@@ -9,7 +9,8 @@
 
     <meta name="keywords" content="Natural Hair, African Hair, Afro, Afro Hair">
     @php
-    $description = "iShoba Hair is a range of locally (South African) made natural hair care products. Made from organic ingredients ensuring that the end products are safe for your hair and can be trusted.";
+    $description = "iShoba Hair is a range of locally (South African) made natural hair care products. Made from organic
+    ingredients ensuring that the end products are safe for your hair and can be trusted.";
     @endphp
     <meta name="description" content="{{$description}}">
 
@@ -58,15 +59,6 @@
                     </button>
                     <div class="collapse navbar-collapse flex-column" id="navbarNavAltMarkup">
                         <div class="navbar-nav align-self-end">
-                            @if(Auth::check() && Auth::user()->role == 'admin')
-                            <a class="nav-link text-uppercase {{\URL::current() === \URL::route('public.home') ? 'active':''}}"
-                                href="{{ route('admin.home') }}">Orders</a>
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <a class="nav-link text-uppercase text-danger" onclick="event.preventDefault();
-                                this.closest('form').submit();">Logout</a>
-                            </form>
-                            @else
                             <a class="nav-link text-uppercase {{\URL::current() === \URL::route('public.home') ? 'active':''}}"
                                 href="{{ route('public.home') }}">About</a>
                             <a class="nav-link text-uppercase {{\URL::current() === \URL::route('public.shop') ? 'active':''}}"
@@ -75,11 +67,22 @@
                                 href="{{ route('public.distributor')}}">Distributors</a>
                             <a class="nav-link text-uppercase {{\URL::current() === \URL::route('public.contact') ? 'active':''}}"
                                 href="{{route('public.contact')}}">Contact Us</a>
-                            <a class="nav-link text-uppercase {{\URL::current() === \URL::route('public.customer.authCustomer') ? 'active':''}}"
-                                href="{{route('public.customer.authCustomer')}}">Login</a>
-                            <a class="nav-link text-uppercase text-primary" href="{{ route('public.shopping-cart')}}"><i
-                                    class="fas fa-shopping-cart"></i></a>
+
+                            @if(Auth::check())
+                            <a class="nav-link text-uppercase {{\URL::current() === \URL::route('public.home') ? 'active':''}}"
+                                href="{{ route('admin.home') }}">{{ Auth::user()->isAdmin() ?  'Orders' : 'My Orders' }}</a>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <a class="nav-link text-uppercase text-danger" href='#' onclick="event.preventDefault();
+                                this.closest('form').submit();">Logout</a>
+                            </form>
+                            @else
+                            <a class="nav-link text-uppercase {{\URL::current() === \URL::route('login') ? 'active':''}}"
+                                href="{{route('login')}}">Login</a>
                             @endif
+
+                            <a class="nav-link text-uppercase text-primary" href="{{ route('public.shopping-cart')}}"><i
+                                class="fas fa-shopping-cart"></i></a>
                         </div>
                     </div>
                 </div>

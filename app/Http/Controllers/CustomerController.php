@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Customer;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,7 +11,7 @@ class CustomerController extends Controller
     public function clientCheck(Request $request)
     {
         if ($request->has('email')) {
-            $client = Customer::where('emailAddress', $request->email)->first();
+            $client = User::where('email', $request->email)->first();
 
             if ($client) {
 
@@ -34,26 +34,7 @@ class CustomerController extends Controller
         }
 
     }
-
-    public function auth()
-    {
-        return view('pages.customer.auth');
-    }
-
-    public function authCustomer(Request $request)
-    {
-        $this->validate($request, [
-            'emailAddress' => 'required|email',
-            'password' => 'required|min:6',
-        ]);
-
-        if (Auth::guard('customer')->attempt(['emailAddress' => $request->emailAddress, 'password' => $request->password])) {
-            return redirect()->route('secure.customer.customerProfile');
-        } else {
-            dd("Auth Failed");
-        }
-    }
-
+    
     public function profile()
     {
         //check if user is auth and their password isn't the default one, if it is default force them to change it

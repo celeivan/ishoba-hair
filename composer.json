@@ -9,6 +9,7 @@
         "anhskohbo/no-captcha": "^3.4",
         "darryldecode/cart": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
+        "giggsey/libphonenumber-for-php": "^8.12",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",

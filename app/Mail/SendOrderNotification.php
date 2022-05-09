@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class SendContactForm extends Mailable
+class SendOrderNotification extends Mailable
 {
     use Queueable, SerializesModels;
     public $data;
@@ -29,8 +29,10 @@ class SendContactForm extends Mailable
      */
     public function build()
     {
-        return $this->from(env('MAIL_FROM_ADDRESS'), 'Website Contact Form')
-        ->subject('IShoba Hair Website - Contact Form')
-        ->markdown('emails.contact-email-md')->with('data', $this->data);
+        $reference = $this->data['reference'];
+        $subject = "IShoba Hair Order - $reference";        
+        return $this->from(env('MAIL_FROM_ADDRESS'), 'iShoba Hair Order Notification')
+        ->subject($subject)
+        ->markdown('emails.order-received-md')->with('data', $this->data);
     }
 }

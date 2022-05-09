@@ -15,7 +15,7 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->integer('customer_id');
+            $table->integer('user_id');
             $table->string('order_reference');
             $table->double('total')->default(0);
             $table->longText('shippingAddress')->nullable(); //if customer will collect

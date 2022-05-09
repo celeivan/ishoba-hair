@@ -3,14 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
 
     public function home()
     {
-        $orders = Order::all();
-        return view('dashboard', ['orders' => $orders]);
+        if(Auth::check()){
+            if(Auth::user()->isAdmin()){
+                $orders = Order::all();
+            }else{
+                $orders = Auth::user()->orders;
+            }
+            
+            return view('dashboard', ['orders' => $orders]);
+
+        } else{
+            return redirect()->route('login');
+        }
     }
 
     public function viewOrder(Order $order)

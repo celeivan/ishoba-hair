@@ -4,7 +4,8 @@
     <h2 class="text-center">{{ $shippingMethod === 'courier' ? 'Delivery Info' : 'Client Info'}}</h2>
     <hr />
 
-    <p>Thank you for shopping with us, enter your email if you're a returning customer.</p>
+    @if(!Auth::check())
+    <p>Thank you for shopping with us, enter your email if you're a returning customer. Otherwise, create a new profile so you can manage your account.</p>
 
     <div class="row">
         <div class="col-12 col-md-6">
@@ -26,29 +27,50 @@
         </div>
     </div>
 
+    @else
+    <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <p>Thank you <strong>{{ Auth::user()->firstNames }}</strong>. Not your account? <a class='text-danger' href='#' onclick="event.preventDefault();
+            this.closest('form').submit();">switch account</a> </p>
+    </form>
     <hr />
+    @endif
+    
     <div class="customerInfo mt-4">
+        @php
+            if(Auth::check()) $user = Auth::user();
+        @endphp
         <form action="{{ route('public.order-create')}}" method="POST" id="customerInfo" class="contact-form row g-3">
             @csrf
             <div class="col-md-6 form-floating">
-                <input name="firstNames" required type="text" class="form-control" placeholder="">
+                <input name="firstNames" required="required" value="{{$user->firstNames ?? '' }}" type="text" class="form-control" placeholder="">
                 <label for="firstName" class="form-label">First Name/s</label>
             </div>
             <div class="col-md-6 form-floating">
-                <input name="lastName" required type="text" class="form-control" placeholder="">
+                <input name="lastName" required="required" value="{{$user->lastName ?? '' }}" type="text" class="form-control" placeholder="">
                 <label for="lastName" class="form-label">Last Name</label>
             </div>
             <div class="col-md-6 form-floating">
-                <input name="emailAddress" required type="email" class="form-control" placeholder="">
+                <input name="email" autocomplete="off" required="required" value="{{$user->email ?? '' }}" type="email" class="form-control" placeholder="">
                 <label for="email" class="form-label">Email Address</label>
             </div>
             <div class="col-md-6 form-floating">
-                <input name="contactNo" required type="text" class="form-control" placeholder="">
+                <input name="contactNo" autocomplete="off" required="required" value="{{$user->contactNo ?? '' }}" type="text" class="form-control" placeholder="">
                 <label for="contactNo" class="form-label">Contact No</label>
             </div>
+            @if(empty($user))
+            <div class="col-md-6 passwordField form-floating">
+                <input name="password" autocomplete="off" type="password" class="form-control" placeholder="">
+                <label for="password" class="form-label">Password</label>
+            </div>
+            <div class="col-md-6 passwordField form-floating">
+                <input name="password_confirmation" autocomplete="off" type="password" class="form-control" placeholder="">
+                <label for="password_confirmation" class="form-label">Password Confirmation</label>
+            </div>
+            @endif
             @if($shippingMethod === 'courier')
             <div class="col-12 form-floating">
-                <input name="shippingAddress" required type="text" class="form-control" placeholder="">
+                <input name="shippingAddress" required="required" required type="text" class="form-control" placeholder="">
                 <label for="shippingAddress" class="form-label">Shipping Address</label>
             </div>
             <div class="form-floating">
@@ -81,21 +103,26 @@
 @section('scripts')
 <script>
     $(function(){
-        $('.customerInfo').hide()
+        @if(!Auth::check())
+            $('.customerInfo').hide()
+        @endif
         $('input:radio[name="newCustomer"]').on('change', function(e) {
             if ($(this).is(':checked')) {
                 $('#customerInfo').trigger('reset');
+                $('.passwordField').show()
                 $('.customerInfo').show()
+                $('#existingEmail').val('');
             }
         });
 
         $('#existingEmail').on('focus', function(e) {
             $('input:radio[name="newCustomer"]').prop('checked', false)
+            $('.customerInfo').hide()
         })
 
         $('#existingEmailBtn').on('click', async function() {
             let email = $('#existingEmail').val();
-            console.log("Exisitng email submit ", email)
+            
             if(email == null || email.length < 3){
                 Swal.fire({
                     icon: 'error',
@@ -116,11 +143,13 @@
                 let {error, message, customer} = content
                 if(error == null){
                     if(customer){
-                        let {firstNames, lastName, emailAddress, contactNo} = customer
+                        let {firstNames, lastName, email, contactNo} = customer
                         $('[name="firstNames"]').val(firstNames)
                         $('[name="lastName"]').val(lastName)
-                        $('[name="emailAddress"]').val(emailAddress)
+                        $('[name="email"]').val(email)
                         $('[name="contactNo"]').val(contactNo)
+                        $('.passwordField').hide()
+                        $('input:radio[name="newCustomer"]').prop('checked', false)
                         $('.customerInfo').show()
                         Swal.fire({
                             icon: "success",
@@ -141,7 +170,6 @@
                         $('#customerInfo').trigger('reset');
                     }
                 }
-
             }
 
         })

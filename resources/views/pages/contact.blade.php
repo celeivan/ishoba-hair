@@ -30,7 +30,7 @@
             <a href="https://www.instagram.com/ishobahair" target="_blank">IShoba Hair</a>
         </div>
     </div>
-    {{-- Add Distributors details (would also highly assist) --}}
+    {{--//REVIEW Add Distributors details (would also highly assist) --}}
 
     <hr />
     <p class="text-center mb-4"><i class="fas fa-map-marker-alt fa-lg"></i> We are located at <strong>Shop 2 Sangro

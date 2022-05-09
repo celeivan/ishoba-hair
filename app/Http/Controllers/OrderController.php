@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Order;
-use App\Models\Customer;
 use App\Models\OrderItems;
 use Illuminate\Http\Request;
+use App\Models\OrderComments;
+use App\Mail\SendOrderNotification;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
-
 
     public function customerOrder(Order $order)
     {
@@ -26,38 +29,50 @@ class OrderController extends Controller
         if ($request->session()->has('shippingMethod')) {
             $shippingMethod = $request->session()->get('shippingMethod');
         } else {
-            $shippingMethod = null;
+            if (!empty($order->shippingAddress)) {
+                $shippingMethod = 'courier';
+            } else {
+                $shippingMethod = 'collect';
+            }
+        }
+
+        if (!empty($shippingMethod) && $shippingMethod == 'courier') {
+            $cartTotal = \Cart::getTotal() + Order::$shippingFee;
+        } else {
+            $cartTotal = \Cart::getTotal();
         }
 
         // Add validators to ensure no other customer has similar number or email
         // Check if radio for new customer is selected through JS
 
-        $customer = Customer::where('emailAddress', $request->emailAddress)->first();
-        //TODO: generate unique order reference system
+        $customer = User::where('email', $request->email)->first();
+
         if (!$customer) {
-
-            $customer = Customer::create($request->only(
-                'firstNames',
-                'lastName',
-                'emailAddress',
-                'contactNo',
-                'distributorCode',
-            ));
-
-            $customer->update([
-                'password' => Hash::make('Cust0m3rP'),
+            $this->validate($request, [
+                'firstNames' => 'required|string',
+                'lastName' => 'required|string',
+                'email' => 'required|unique:users,email:rfc,dns',
+                'contactNo' => 'required|unique:users',
+                'password' => 'required|string|confirmed',
             ]);
 
-            //TODO: Dispatch an email with password and login url
+            $customer = User::create($request->only(
+                'firstNames',
+                'lastName',
+                'email',
+                'contactNo',
+                'distributorCode',
+                'password',
+            ));
         }
 
         if ($customer) {
             $orderReference = $customer->id . rand(10000, 99999);
 
             $order = Order::create([
-                'customer_id' => $customer->id,
+                'user_id' => $customer->id,
                 'order_reference' => $orderReference,
-                'total' => \Cart::getTotal(),
+                'total' => $cartTotal,
                 'shippingAddress' => $request->shippingAddress,
                 'shippingNote' => $request->shippingNote,
                 'discountCode' => $request->discountCode,
@@ -71,6 +86,17 @@ class OrderController extends Controller
                         'qty' => $item->quantity,
                     ]);
                 }
+
+                if ($customer->email) {
+                    $data = [
+                        'heading' => 'Thank you for placing your order', 
+                        'reference' => $order->order_reference,
+                        'order' => $order
+                    ];
+
+                    Mail::to($customer->email)->send(new SendOrderNotification($data));
+                }
+
                 return redirect()->route('public.confirm-order', $order->order_reference);
             }
         } else {
@@ -83,41 +109,110 @@ class OrderController extends Controller
         if ($request->session()->has('shippingMethod')) {
             $shippingMethod = $request->session()->get('shippingMethod');
         } else {
-            $shippingMethod = null;
+            if (!empty($order->shippingAddress)) {
+                $shippingMethod = 'courier';
+            } else {
+                $shippingMethod = 'collect';
+            }
         }
 
-        // $merchant_id = '11787500';
-        // $merchant_key = 'agc0i8d0wzrep';
-        // $passPhrase = "The Boys Stood 2";
-        $merchant_id = '10004535';
-        $merchant_key = 'df13dnlhjdck9';
-        $passPhrase = "TicketInTES";
+        if (\Config::get('app.debug')) {
+            $merchant_id = '10004535';
+            $merchant_key = 'df13dnlhjdck9';
+            $passPhrase = "TicketInTES";
+            $notifyUrl = 'https://ishoba.sharedwithexpose.com/api/payfast';
+            $returnUrl = 'https://ishoba.sharedwithexpose.com/'; //Mod this to return to the order page
+        } else {
+            //Enter live details here
+            $merchant_id = '19581691';
+            $merchant_key = '76p9dmln22lqu';
+            $passPhrase = "iSh0baHair0rganic";
+            $notifyUrl = 'https://ishoba.co.za/api/payfast';
+            $returnUrl = 'https://ishoba.co.za/'; //Mod this to return to the order page
+        }
 
-        if ($shippingMethod && $shippingMethod == 'courier') {
+        if (!empty($shippingMethod) && $shippingMethod == 'courier') {
             $cartTotal = $order->total + Order::$shippingFee;
         } else {
             $cartTotal = $order->total;
         }
 
+        if($order->customer->getFormattedPhoneNumber()){
+            $userNumber = $order->customer->getFormattedPhoneNumber();
+        }else{
+            $userNumber =  $order->customer->contactNo;
+        }
+
         $data = [
             'merchant_id' => $merchant_id,
             'merchant_key' => $merchant_key,
-            'return_url' => '',
-            'cancel_url' => '',
-            'notify_url' => '',
+            'return_url' => $returnUrl,
+            'cancel_url' => $returnUrl,
+            'notify_url' => $notifyUrl,
             'name_first' => $order->customer->firstNames,
             'name_last' => $order->customer->lastName,
-            'email_address' => $order->customer->emailAddress,
-            'cell_number' => $order->customer->contactNo,
+            'email_address' => $order->customer->email,
+            'cell_number' => $userNumber,
             'm_payment_id' => $order->order_reference,
             'amount' => number_format(sprintf('%.2f', $cartTotal), 2, '.', ''),
-            'item_name' => "IShoba Hair- ISH-" . $order->order_reference,
+            'item_name' => "IShoba Hair - ISH-" . $order->order_reference,
             'item_description' => "IShoba Hair products order incl shipping",
+            'custom_str1' => number_format(sprintf('%.2f', $cartTotal), 2, '.', ''),
         ];
 
         $signature = $this->generateSignature($data, $passPhrase);
         $data['signature'] = $signature;
         return view('pages.confirmOrder', ['order' => $order, 'pfData' => $data, 'shippingMethod' => $shippingMethod]);
+    }
+
+    public function updateOrderStatus(Order $order, Request $request)
+    {
+        if ($order) {
+            $order->update([
+                'status' => $request['status'],
+            ]);
+
+            $comment = OrderComments::create([
+                'order_id' => $order->id,
+                'user_id' => $request['user_id'],
+                'comment' => "Order Status chaged to $order->status",
+            ]);
+
+            if ($order->customer->email) {
+                $data = [
+                    'heading' => 'Order Notification', 
+                    'reference' => $order->order_reference,
+                    'order' => $order,
+                    'body' => 'A comment was added to the order '.$comment->comment,
+                ];
+
+                Mail::to($order->customer->email)->send(new SendOrderNotification($data));
+            }
+
+            return response()->json([
+                'error' => null,
+                'message' => "Order succesfully update",
+                'order' => $order,
+            ]);
+        } else {
+            return response()->json([
+                'error' => 'Order not found',
+                'message' => "Order succesfully update",
+            ]);
+        }
+
+    }
+
+    public function saveComment(Order $order, Request $request)
+    {
+        OrderComments::create([
+            'order_id' => $order->id,
+            'user_id' => Auth::id(),
+            'type' => 'comment',
+            'comment' => $request['comment'],
+        ]);
+
+        return redirect()->back();
     }
 
     private function generateSignature($data, $passPhrase = null)

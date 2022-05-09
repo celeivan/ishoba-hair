@@ -11152,3 +11152,14 @@ textarea.form-control-lg {
   font-size: 0.8rem;
   font-weight: bold;
 }
+
+.comments .comment.sent p {
+  text-align: right;
+}
+.comments .comment.received p {
+  text-align: left;
+}
+.comments .comment.system p {
+  text-align: center;
+  background-color: #cff4fc;
+}

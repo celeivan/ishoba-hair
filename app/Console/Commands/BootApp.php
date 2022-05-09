@@ -94,8 +94,9 @@ class BootApp extends Command
             $this->info("Admin already created");
         }else{
             User::create([
-                'name' => 'IShoba Hair Admin',
-                'email' => 'admin@example.com',
+                'firstNames' => 'IShoba Hair',
+                'lastName' => 'Admin',
+                'email' => 'admin@ishoba.co.za',
                 'password' => Hash::make('P@ssw0rd'),
                 'role' => 'admin',
             ]);

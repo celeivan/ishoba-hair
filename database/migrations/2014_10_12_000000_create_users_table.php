@@ -15,10 +15,15 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('firstNames');
+            $table->string('lastName');
             $table->string('email')->unique();
-            $table->string('role')->nullable();
+            $table->string('role')->default('customer');
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('contactNo')->nullable();
+            $table->timestamp('contact_no_verified_at')->nullable();
+            $table->string('distributorCode')->nullable(); //Set this if the client signs up as distributor
+            $table->timestamp('distributor_since')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

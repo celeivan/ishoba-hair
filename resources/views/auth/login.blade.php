@@ -2,7 +2,7 @@
 @section('content')
 <div class="container bg-light flex-grow-1 d-flex justify-content-center align-content-center align-items-center flex-column">
 
-    <h3 class="text-uppercase">Login to Admin Panel</h3>
+    <h3 class="text-uppercase">Login</h3>
     <hr class="w-50 p-0 m-0"/>
 
     <div class="col-md-4 mt-4">

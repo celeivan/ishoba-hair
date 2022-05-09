@@ -15,6 +15,11 @@ class Product extends Model
         'imageUrl',
     ];
 
+
+    protected $casts = [
+        'price' => 'double:2',
+    ];
+
     public function getNameAttribute($name)
     {
         return ucwords($name);

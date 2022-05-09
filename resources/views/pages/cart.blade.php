@@ -1,3 +1,7 @@
+@php
+use App\Models\Order;
+@endphp
+
 @extends('layouts.public')
 
 @section('content')
@@ -66,15 +70,15 @@
             <tr>
                 <td colspan="2" class="border-0"></td>
                 <th>Shipping</th>
-                <th class="text-end">{{ $shippingMethod === 'courier' ? 'R '.number_format(\App\Models\Order::$shippingFee,2):'R 0.00'}}</th>
+                <th class="text-end">{{ $shippingMethod === 'courier' ? 'R '.number_format(Order::$shippingFee,2):'R 0.00'}}</th>
             </tr>
             <tr>
                 <td colspan="2" class="border-0"></td>
                 <th>TOTAL</th>
                 @if($shippingMethod === 'courier')
-                <th class="text-end">R {{ number_format((\Cart::getSubTotal() + 100), 2)}}</th>
+                    <th class="text-end">R {{ number_format((\Cart::getSubTotal()+Order::$shippingFee), 2)}}</th>
                 @else
-                <th class="text-end">R {{ number_format((\Cart::getSubTotal()), 2)}}</th>
+                    <th class="text-end">R {{ number_format((\Cart::getSubTotal()), 2)}}</th>
                 @endif
             </tr>
         </tfoot>

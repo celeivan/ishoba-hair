@@ -1,20 +1,40 @@
+@php
+use App\Models\Order;
+@endphp
 @extends('layouts.public')
 
 @section('content')
 <div class="container confirmOrder bg-light p-4">
-    <h2 class="text-center">Order Status (<span
+    <h2 class="text-center">Order (<span
             class="text-secondary">ISH-</span><span>{{$order->order_reference}}</span>)</h2>
     <hr />
+
+    @if(!$order->isPaid())
     <p>Thank you for shopping with us, please preview your order and if all the details and amount are correct, then
-        make the payment and send proof of payment to us.</p>
+        make the payment and send proof of payment to us (if you used EFT).</p>
+    @endif
 
     <div class="status alert alert-info bordered">
         <h6>Status</h6>
         <hr/>
         <p>
-            {{ $order->status }} - {{ $order->statusDescription}}
+            {{ ucwords($order->status) }} - {{ $order->statusDescription ?? Order::$orderStatuses[$order->status] }}
         </p>
     </div>
+
+
+    <p>Please note that we do not process payments, we make use of a payment gateway, we will now redirect you to their
+        website so you can complete your payment.</p>
+
+    <form method="POST" id="pf-form"
+        action="https://{{ App::environment('local') ? 'sandbox.payfast.co.za' :'www.payfast.co.za' }}/eng/process">
+
+        @foreach($pfData as $name=>$value)
+        <input name="{{$name}}" type="hidden" readonly value="{{ $value }}" />
+        @endforeach
+    </form>
+
+    <button type="button" onclick="$('#pf-form').trigger('submit')" class="btn mx-2 btn-primary">Pay Online Now</button>
 
     <h4 class="mt-4 text-uppercase">Banking Details</h4>
     <hr class="col-md-6" />
@@ -36,6 +56,7 @@
         <dd class="col-sm-9">{{$order->order_reference}}</dd>
     </dl>
 
+    @if(Auth::check())
     <h4 class="mt-4 text-uppercase fw-smaller">Customer Details</h4>
     <hr class="col-md-6" />
     <dl class="row">
@@ -46,11 +67,13 @@
         <dd class="col-sm-9">{{ $order->customer->lastName}}</dd>
 
         <dt class="col-sm-3">Contact No</dt>
-        <dd class="col-sm-9">{{ $order->customer->hiddenNumber()}}</dd>
+        <dd class="col-sm-9">{{ $order->customer->contactNo}}</dd>
 
         <dt class="col-sm-3">Email Address</dt>
-        <dd class="col-sm-9">{{ $order->customer->hiddenEmail() }}</dd>
+        <dd class="col-sm-9">{{ $order->customer->email }}</dd>
     </dl>
+
+    @endif
 
     <h4 class="mt-4 text-uppercase">Order Details</h4>
     <hr class="col-md-6" />
@@ -83,23 +106,5 @@
             </ol>
         </dd>
     </dl>
-
-    <p>Please note that we do not process payments, we make use of a payment gateway, we will now redirect you to their
-        website so you can complete your payment.</p>
-
-    <form method="POST" id="pf-form"
-        action="https://{{ App::environment('local') ? 'sandbox.payfast.co.za' :'www.payfast.co.za' }}/eng/process">
-
-        @foreach($pfData as $name=> $value)
-        <input name="{{$name}}" type="hidden" readonly value="{{ $value }}" />
-        @endforeach
-    </form>
-
-    <button type="button" onclick="$('#pf-form').trigger('submit')" class="btn mx-2 btn-primary">Pay Online
-        Now</button>
-    <a href="{{route('public.customer.auth')}}" class="btn mx-2 btn-success">Login to make changes</a>
-
-
-
 </div>
 @endsection
