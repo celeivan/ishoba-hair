@@ -69,7 +69,7 @@
                                 href="{{route('public.contact')}}">Contact Us</a>
 
                             @if(Auth::check())
-                            <a class="nav-link text-uppercase {{\URL::current() === \URL::route('public.home') ? 'active':''}}"
+                            <a class="nav-link text-uppercase {{\URL::current() === \URL::route('admin.home') ? 'active':''}}"
                                 href="{{ route('admin.home') }}">{{ Auth::user()->isAdmin() ?  'Orders' : 'My Orders' }}</a>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
