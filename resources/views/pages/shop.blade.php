@@ -7,13 +7,13 @@
             <h2>{{ $product['name'] }}</h2>
             <hr />
         </div>
-        <div class="product d-flex">
-            <div class="productImage col-3">
-                <img src="{{ $product['imageUrl']}}" class="img-fluid" />
+        <div class="product d-flex flex-wrap flex-md-nowrap">
+            <div class="productImage col-12 col-md-3">
+                <img src="{{ $product['imageUrl'] }}" class="img-fluid" />
             </div>
             <div
                 class="description d-flex flex-column justify-content-center align-items-center align-content-center flex-grow-1">
-                <p class="">
+                <p class="pt-1 pt-md-0">
                     {{ $product['description'] }}
                 </p>
                 <div class="actions d-flex justify-content-center align-content-center">

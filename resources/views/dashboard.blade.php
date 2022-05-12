@@ -4,7 +4,7 @@ use App\Models\Order;
 @extends('layouts.public')
 @section('content')
 <div class="container-fluid">
-    <div class="bg-light p-4 mx-4">
+    <div class="bg-light p-1 pt-2 p-md-4  mx-1 mx-md-4">
         <h4 class="text-center">Welcome back <b>{{Auth::user()->firstNames}} {{Auth::user()->lastName}}</b></h4>
         <hr />
 
@@ -20,7 +20,7 @@ use App\Models\Order;
             <p class='alert alert-info'>You can manage your orders here, view order details and add comments (click on the order number to view the order and comments)</p>
         @endif
     </div>
-    <div class="bg-light p-4 pt-0 mx-4">
+    <div class="bg-light p-1 p-md-4 pt-0 mx-1 mx-md-4">
         <h2 class="text-uppercase">Orders</h2>
         <hr />
         @if(Auth::user()->isAdmin())
@@ -34,66 +34,68 @@ use App\Models\Order;
         </div> --}}
         @endif
 
-        <table class="table table-responsive table-sm table-hover mt-4">
-            <thead>
-                <tr>
-                    <th>Created When</th>
-                    <th>Order Ref</th>
-                    <th>Total</th>
-                    <th>Status</th>
-                    @if(Auth::user()->isAdmin())
-                    <th>Customer</th>
-                    @endif
-                    <th>Shipping Method</th>
-                    <th>Item/s</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($orders as $order)
-                <tr>
-                    <td>{{ $order->created_at->diffForHumans() }}</td>
-                    <td><a href="{{ route('admin.view-order', $order->order_reference) }}">
-                            {{$order->order_reference}}</a></td>
-
-                    <td>R {{ $order->shippingAddress === null ? number_format($order->total,2) :
-                        number_format($order->total+\App\Models\Order::$shippingFee,2) }}</td>
-                    <td>
+        <div class="table-responsive-md">
+            <table class="table table-sm table-hover mt-4">
+                <thead>
+                    <tr>
+                        <th>Created When</th>
+                        <th>Order Ref</th>
+                        <th>Total</th>
+                        <th>Status</th>
                         @if(Auth::user()->isAdmin())
-                        <select class="form-control" data-order-ref="{{ $order->order_reference }}" name="orderStatus">
-                            @forelse (Order::$orderStatuses as $status => $description)
-                            <option value="{{$status}}" {{$status==$order->status ? "selected=selected" : ''}}>{{
-                                ucwords($status) }}</option>
+                        <th>Customer</th>
+                        @endif
+                        <th>Shipping Method</th>
+                        <th>Item/s</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($orders as $order)
+                    <tr class="text-nowrap">
+                        <td>{{ $order->created_at->diffForHumans() }}</td>
+                        <td><a href="{{ route('admin.view-order', $order->order_reference) }}">
+                                {{$order->order_reference}}</a></td>
+
+                        <td>R {{ $order->shippingAddress === null ? number_format($order->total,2) :
+                            number_format($order->total+\App\Models\Order::$shippingFee,2) }}</td>
+                        <td>
+                            @if(Auth::user()->isAdmin())
+                            <select class="form-control" data-order-ref="{{ $order->order_reference }}" name="orderStatus">
+                                @forelse (Order::$orderStatuses as $status => $description)
+                                <option value="{{$status}}" {{$status==$order->status ? "selected=selected" : ''}}>{{
+                                    ucwords($status) }}</option>
+                                @empty
+                                @endforelse
+                            </select>
+                            @else
+                                <span>{{ ucwords($order->status) }}</span><br />
+                                <span>{{ Order::$orderStatuses[$order->status]}}</span>
+                            @endif
+                        </td>
+                        @if(Auth::user()->isAdmin())
+                        <td>{{ $order->customer->firstNames ?? '' }}</td>
+                        @endif
+                        <td>
+                            <span>{{ $order->shippingAddress === null ? 'Collect' : 'Deliver' }}</span><br />
+                            <span>{{ $order->shippingAddress}}</span>
+                        </td>
+                        <td>
+                            @forelse($order->items as $item)
+                            <span>{{$item->qty}} x {{$item->product->name}}</span><br />
                             @empty
                             @endforelse
-                        </select>
-                        @else
-                            <span>{{ ucwords($order->status) }}</span><br />
-                            <span>{{ Order::$orderStatuses[$order->status]}}</span>
-                        @endif
-                    </td>
-                    @if(Auth::user()->isAdmin())
-                    <td>{{ $order->customer->firstNames ?? '' }}</td>
-                    @endif
-                    <td class="">
-                        <span>{{ $order->shippingAddress === null ? 'Collect' : 'Deliver' }}</span><br />
-                        <span>{{ $order->shippingAddress}}</span>
-                    </td>
-                    <td class="">
-                        @forelse($order->items as $item)
-                        <span>{{$item->qty}} x {{$item->product->name}}</span><br />
-                        @empty
-                        @endforelse
-                    </td>
-                </tr>
-                @empty
-                <tr>
-                    <td colspan="6">
-                        <p class="alert alert-info text-center m-0 p-1">No orders yet</p>
-                    </td>
-                </tr>
-                @endforelse
-            </tbody>
-        </table>
+                        </td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="6">
+                            <p class="alert alert-info text-center m-0 p-1">No orders yet</p>
+                        </td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 @endsection

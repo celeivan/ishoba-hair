@@ -5,7 +5,7 @@ use App\Models\Order;
 @extends('layouts.public')
 @section('content')
 <div class="container-fluid">
-    <div class="bg-light mx-4 p-4">
+    <div class="bg-light p-1 p-md-4 pt-0 mx-1 mx-md-4">
         <h1> {{Auth::user()->isAdmin() ? 'Manage':'View' }} Order - {{$order->order_reference}}</h1>
         <hr />
         <div class="status">

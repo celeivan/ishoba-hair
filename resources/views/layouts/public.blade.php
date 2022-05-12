@@ -135,11 +135,10 @@
                             <i class="fas fa-map-marker-alt hideIcon"></i> Durban (CBD) 4000</a>
                     </p>
                 </div>
-                <div class="links">
+                {{-- <div class="links">
                     <ol class="list-unstyled">
                         <li><a href="{{ route('public.home') }}">About</a></li>
                         <li><a href="{{ route('public.shop') }}">Shop Now</a></li>
-                        {{-- <li><a href="{{ route('public.') }}">Reviews</a></li> --}}
                         <li><a href="{{ route('public.contact') }}">Contact Us</a></li>
                     </ol>
                     <div class="socials mt-2">
@@ -150,7 +149,7 @@
                         <a target="_blank" href="https://www.instagram.com/ishobahair/"><i
                                 class="fab fa-2x fa-instagram"></i></a>
                     </div>
-                </div>
+                </div> --}}
                 <div class="contacts mt-4 d-block d-md-none">
                     <p>
                         <i class="fas fa-phone"></i> <a
@@ -166,6 +165,21 @@
                             Street),<br />
                             <i class="fas fa-map-marker-alt hideIcon"></i> Durban (CBD) 4000</a>
                     </p>
+                </div>
+                <div class="links">
+                    <ol class="list-unstyled">
+                        <li><a href="{{ route('public.home') }}">About</a></li>
+                        <li><a href="{{ route('public.shop') }}">Shop Now</a></li>
+                        <li><a href="{{ route('public.contact') }}">Contact Us</a></li>
+                    </ol>
+                    <div class="socials mt-2">
+                        <a target="_blank" href="https://wa.me/&#50;&#55;&#55;&#57;&#53;&#51;&#51;&#48;&#48;&#56;&#48;"
+                            target="_blank"><i class="fab fa-2x fa-whatsapp"></i></a>
+                        <a target="_blank" href="https://www.facebook.com/ishobahair" target="_blank"><i
+                                class="fab fa-2x fa-facebook"></i></a>
+                        <a target="_blank" href="https://www.instagram.com/ishobahair/"><i
+                                class="fab fa-2x fa-instagram"></i></a>
+                    </div>
                 </div>
             </div>
         </div>
