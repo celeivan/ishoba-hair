@@ -81,8 +81,10 @@
                                 href="{{route('login')}}">Login</a>
                             @endif
 
-                            <a class="nav-link text-uppercase text-primary" href="{{ route('public.shopping-cart')}}"><i
-                                class="fas fa-shopping-cart"></i></a>
+                            <a class="nav-link text-uppercase text-primary" href="{{ route('public.shopping-cart')}}">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span class='badge badge-warning' id='lblCartCount'>0</span>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -199,6 +201,30 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
     @yield('scripts')
+    <script>
+        $(document).ready(function(){
+            refreshCartCounter()
+        })
+
+        let refreshCartCounter = async () => {
+            let currentCount = $('#lblCartCount').html()
+
+            const rawResponse = await fetch(`/api/get-cart-item-count`, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json', 
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                }
+            });
+
+            const content = await rawResponse.json();
+            let {error, count} = content
+            if(error == null){
+                $('#lblCartCount').html(count)
+            }
+        }
+    </script>
 </body>
 
 </html>

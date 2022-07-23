@@ -11,15 +11,18 @@ class SendOrderNotification extends Mailable
 {
     use Queueable, SerializesModels;
     public $data;
+    public $view = "emails.order-received-md";
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($data)
+    public function __construct($data, $view = '')
     {
         $this->data = $data;
+
+        if($view != '') $this->view = $view;
     }
 
     /**
@@ -33,6 +36,6 @@ class SendOrderNotification extends Mailable
         $subject = "IShoba Hair Order - $reference";        
         return $this->from(env('MAIL_FROM_ADDRESS'), 'iShoba Hair Order Notification')
         ->subject($subject)
-        ->markdown('emails.order-received-md')->with('data', $this->data);
+        ->markdown($this->view)->with('data', $this->data);
     }
 }

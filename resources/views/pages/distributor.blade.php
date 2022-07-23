@@ -74,6 +74,9 @@
                     timer: 3000,
                 })
             }
+
+            refreshCartCounter()
+
         })
     });
 </script>

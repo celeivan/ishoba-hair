@@ -96,7 +96,7 @@ class BootApp extends Command
             User::create([
                 'firstNames' => 'IShoba Hair',
                 'lastName' => 'Admin',
-                'email' => 'admin@ishoba.co.za',
+                'email' => 'orders@ishoba.co.za',
                 'password' => Hash::make('P@ssw0rd'),
                 'role' => 'admin',
             ]);

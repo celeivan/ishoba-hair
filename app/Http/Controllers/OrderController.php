@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Order;
+use App\Models\Product;
 use App\Models\OrderItems;
 use Illuminate\Http\Request;
 use App\Models\OrderComments;
 use App\Mail\SendOrderNotification;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
@@ -79,23 +79,37 @@ class OrderController extends Controller
             ]);
 
             if ($order) {
+                $cartItems = [];
                 foreach (\Cart::getContent() as $item) {
+                    
+                    $productId = explode('_', $item->id)[0];
+                
                     OrderItems::create([
                         'order_id' => $order->id,
-                        'product_id' => $item->id,
+                        'product_id' => $productId,
                         'qty' => $item->quantity,
                     ]);
+
+                    
+                    $product = Product::find($productId);
+
+                    $cartItems[] = [
+                        'name' => $product->name,
+                        'qty' => $item->quantity,
+                    ];
                 }
 
                 if ($customer->email) {
                     $data = [
-                        'heading' => 'Thank you for placing your order', 
+                        'heading' => 'Thank you for placing your order',
                         'reference' => $order->order_reference,
-                        'order' => $order
+                        'order' => $order,
+                        'customer' => $customer,
+                        'cartItems' => $cartItems,
                     ];
 
                     Mail::to($customer->email)->send(new SendOrderNotification($data));
-                    Mail::to(env('MAIL_ORDER'))->send(new SendOrderNotification($data));
+                    Mail::to(env('MAIL_ORDER'))->send(new SendOrderNotification($data, "emails.order-received-md-admin"));
                 }
 
                 return redirect()->route('public.confirm-order', $order->order_reference);
@@ -138,10 +152,10 @@ class OrderController extends Controller
             $cartTotal = $order->total;
         }
 
-        if($order->customer->getFormattedPhoneNumber()){
+        if ($order->customer->getFormattedPhoneNumber()) {
             $userNumber = $order->customer->getFormattedPhoneNumber();
-        }else{
-            $userNumber =  $order->customer->contactNo;
+        } else {
+            $userNumber = $order->customer->contactNo;
         }
 
         $data = [
@@ -181,10 +195,10 @@ class OrderController extends Controller
 
             if ($order->customer->email) {
                 $data = [
-                    'heading' => 'Order Notification', 
+                    'heading' => 'Order Notification',
                     'reference' => $order->order_reference,
                     'order' => $order,
-                    'body' => 'A comment was added to the order '.$comment->comment,
+                    'body' => 'A comment was added to the order ' . $comment->comment,
                 ];
 
                 Mail::to($order->customer->email)->send(new SendOrderNotification($data));

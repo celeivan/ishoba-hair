@@ -22,6 +22,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('/get-cart-item-count', [CartController::class, 'getCartCount'])->name('api.getCartCount');
+Route::post('/remove-item-from-cart', [CartController::class, 'removeItemFromCart'])->name('api.removeItemFromCart');
+Route::post('/change-item-qty', [CartController::class, 'changeItemQty'])->name('api.changeItemQty');
 Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('api.addToCart');
 Route::post('/set-shipping-method/{shippingMethod}', [CartController::class, 'setShippingMethod'])->name('api.setShippingMethod');
 Route::post('/client-check', [CustomerController::class, 'clientCheck'])->name('api.clientCheck');

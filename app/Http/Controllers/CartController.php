@@ -19,6 +19,13 @@ class CartController extends Controller
         return view('pages.cart', ['shippingMethod' => $shippingMethod]);
     }
 
+    public function getCartCount(){
+        return response()->json([
+            'error' => null,
+            'count' => \Cart::getContent()->count()
+        ]);
+    }
+    
     public function addToCart(Request $request)
     {
         $productId = $request->productId;
@@ -32,11 +39,13 @@ class CartController extends Controller
             'type' => 'discount',
             'value' => '-15'
         ]);
-
+        
         if($distributor == true){
             $qty = 10;
             $conditions = [$distributorCondition];
+            $cartId = $product->id."_1";
         }else{
+            $cartId = $product->id."_0";
             $conditions =[];
         }
 
@@ -45,10 +54,13 @@ class CartController extends Controller
         if ($request->has('productId')) {
 
             \Cart::add([
-                'id' => $product->id,
+                'id' => $cartId,
                 'name' => $product->name,
                 'price' => $price,
-                'attributes' => ['unitPrice' => $product->price],
+                'attributes' => [
+                    'unitPrice' => $product->price,
+                    'dbId' => $product->id
+                ],
                 'quantity' => $qty,
                 'conditions' => $conditions,
             ]);
@@ -89,6 +101,43 @@ class CartController extends Controller
         \Cart::clear();
         $request->session()->forget('shippingMethod');
         return redirect()->back();
+    }
+
+    public function removeItemFromCart(Request $request){
+        if(isset($request->cartId)){
+            \Cart::remove($request->cartId);
+            return response()->json([
+                'error' => null,
+                'message' => 'Item removed from cart'
+            ]);
+        }else{
+            return response()->json([
+                'error' => 'Uknown Item',
+                'message' => 'Cannot remove uknown item from cart'
+            ]);
+        }
+    }
+
+    public function changeItemQty(Request $request){
+        if(isset($request->cartId)){
+            
+            \Cart::update($request->cartId, [
+               'quantity' => [
+                    'relative' => false,
+                    'value' => $request->qty
+               ]
+            ]);
+
+            return response()->json([
+                'error' => null,
+                'message' => "Item Quantity changed"
+            ]);
+        }else{
+            return response()->json([
+                'error' => 'Uknown Item',
+                'message' => 'Cannot change an uknown item from cart'
+            ]);
+        }
     }
 
     public function setShippingMethod(Request $request, $shippingMethod)
