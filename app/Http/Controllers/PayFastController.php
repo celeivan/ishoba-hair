@@ -101,6 +101,7 @@ class PayFastController extends Controller
                     'user_id' => 0,
                     'comment' => "Payment received from PayFast, and order status changed to Payment Received",
                 ]);
+                \Cart::clear();
             }else{
                 OrderComments::create([
                     'order_id' => $order->id,
