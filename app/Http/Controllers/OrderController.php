@@ -135,8 +135,10 @@ class OrderController extends Controller
             $merchant_id = '10004535';
             $merchant_key = 'df13dnlhjdck9';
             $passPhrase = "TicketInTES";
-            $notifyUrl = 'https://ishoba.sharedwithexpose.com/api/payfast';
-            $returnUrl = 'https://ishoba.sharedwithexpose.com/'; //Mod this to return to the order page
+            // $notifyUrl = 'https://ishoba.sharedwithexpose.com/api/payfast';
+            $notifyUrl = 'https://ishobaco.stagingthemark.co.za/api/payfast';
+            // $returnUrl = 'https://ishoba.sharedwithexpose.com/'; //Mod this to return to the order page
+            $returnUrl = 'https://ishobaco.stagingthemark.co.za/'; //Mod this to return to the order page
         } else {
             //Enter live details here
             $merchant_id = '19581691';

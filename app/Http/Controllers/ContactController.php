@@ -31,7 +31,7 @@ class ContactController extends Controller
             'formMessage' => $request->message,
         ];
 
-        if (env('APP_ENV') == 'local') {
+        if (env('APP_ENV') == 'local' && app()->debug) {
             Mail::to(env('MAIL_CONTACT'))->send(new SendContactForm($data));
             return view('emails.contact-email-md', ['data' => $data]);
         } else {
