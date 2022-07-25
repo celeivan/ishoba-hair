@@ -55,6 +55,9 @@ class OrderController extends Controller
                 'contactNo' => 'required|unique:users',
                 'password' => 'required|string|confirmed',
             ]);
+            
+            $password = Hash::make($request->password);
+            $request['password'] = $password;
 
             $customer = User::create($request->only(
                 'firstNames',
