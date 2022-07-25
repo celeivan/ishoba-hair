@@ -11,6 +11,7 @@ use App\Models\OrderComments;
 use App\Mail\SendOrderNotification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Hash;
 
 class OrderController extends Controller
 {
