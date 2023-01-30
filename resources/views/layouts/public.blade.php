@@ -189,7 +189,7 @@
         <div class="container">
             <p class="text-center">
                 &copy; {{date('Y')}} iShoba Hair<br />
-                Design by <a href="#">The Excellence Mark Consult</a>
+                Design by <a href="https://themarkco.co.za/" target="_blank">The Mark</a>
             </p>
         </div>
     </div>
