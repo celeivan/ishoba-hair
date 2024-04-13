@@ -11,42 +11,17 @@ class PayFastController extends Controller
 {
     public function webhook(Request $request)
     {
-        // [2022-05-04 20:05:06] local.INFO: array (
-        //     'm_payment_id' => '558468',
-        //     'pf_payment_id' => '1425285',
-        //     'payment_status' => 'COMPLETE',
-        //     'item_name' => 'IShoba Hair - ISH-558468',
-        //     'item_description' => 'IShoba Hair products order incl shipping',
-        //     'amount_gross' => '130.00',
-        //     'amount_fee' => '-2.99',
-        //     'amount_net' => '127.01',
-        //     'custom_str1' => '',
-        //     'custom_str2' => '',
-        //     'custom_str3' => '',
-        //     'custom_str4' => '',
-        //     'custom_str5' => '',
-        //     'custom_int1' => '',
-        //     'custom_int2' => '',
-        //     'custom_int3' => '',
-        //     'custom_int4' => '',
-        //     'custom_int5' => '',
-        //     'name_first' => 'Njabulo Ivan',
-        //     'name_last' => 'Cele',
-        //     'email_address' => 'developer@ncitsolutions.co.za',
-        //     'merchant_id' => '10004535',
-        //     'signature' => '08dd389e74775808286f8613a90f75e6',
-        //   )
-
         //Repond to payfast and then process data intenally
         header('HTTP/1.0 200 OK');
         flush();
 
+        // TODO pull passphrase from env
         if (\Config::get('app.debug')) {
             $pfHost = 'sandbox.payfast.co.za';
-            $pfPassphrase = 'TicketInTES';
+            $pfPassphrase = '';
         } else {
             $pfHost = 'www.payfast.co.za';
-            $pfPassphrase = 'iSh0baHair0rganic';
+            $pfPassphrase = '';
         }
 
         $pfData = $_POST;

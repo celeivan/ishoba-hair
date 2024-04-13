@@ -135,19 +135,20 @@ class OrderController extends Controller
             }
         }
 
+        // TODO pull keys from env file
         if (\Config::get('app.debug')) {
-            $merchant_id = '10004535';
-            $merchant_key = 'df13dnlhjdck9';
-            $passPhrase = "TicketInTES";
+            $merchant_id = '';
+            $merchant_key = '';
+            $passPhrase = "";
             // $notifyUrl = 'https://ishoba.sharedwithexpose.com/api/payfast';
             $notifyUrl = 'https://ishobaco.stagingthemark.co.za/api/payfast';
             // $returnUrl = 'https://ishoba.sharedwithexpose.com/'; //Mod this to return to the order page
             $returnUrl = 'https://ishobaco.stagingthemark.co.za/'; //Mod this to return to the order page
         } else {
             //Enter live details here
-            $merchant_id = '19581691';
-            $merchant_key = '76p9dmln22lqu';
-            $passPhrase = "iSh0baHair0rganic";
+            $merchant_id = '';
+            $merchant_key = '';
+            $passPhrase = "";
             $notifyUrl = 'https://ishoba.co.za/api/payfast';
             $returnUrl = 'https://ishoba.co.za/'; //Mod this to return to the order page
         }
